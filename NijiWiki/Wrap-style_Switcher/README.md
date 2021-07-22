@@ -1,0 +1,42 @@
+## はじめに
+編集フォームの折返しが使いにくいと思ったのでスクリプト書きました  
+
+## 動作
+#### 折り返しなし
+![image](https://user-images.githubusercontent.com/84770944/126604148-9d896ec2-8a93-4528-9142-f2f327eaad4d.png)
+#### 折り返しあり
+![image](https://user-images.githubusercontent.com/84770944/126604164-3888d213-0724-471d-84be-794a8cf88c01.png)
+
+## 使い方
+1. ブラウザに合ったUserScriptを実行できる拡張機能を [Tampermonkey](https://www.tampermonkey.net/) 等からインストールする  
+(Tampermonkey以外でも動くはずですが動作テストしてません)
+2. [UserScript](https://github.com/AnonUsr-Dev/UserScripts/blob/main/NijiWiki/Wrap-style_Switcher/wss.user.js) の[Raw]からインストール  
+![image](https://user-images.githubusercontent.com/84770944/126606836-344aedad-f8a2-4134-80d6-22c11baf93f1.png)
+3. インストールする (画像は旧バージョン)  
+![image](https://user-images.githubusercontent.com/84770944/124894360-87f7d300-e016-11eb-94cc-bf656f9c21b1.png)
+4. Editページで自動実行されます(折返しの切り替えは以下に追加されたボタンから)  
+![image](https://user-images.githubusercontent.com/84770944/124894586-c2fa0680-e016-11eb-9dae-cb7851e9cd07.png)
+
+初期状態を変えたい場合はTampermonkeyのダッシュボードから Wrap-style Switcher for NijiWiki を選び  
+ソースの `DEFAULT_EDITOR` と `DEFAULT_WRAP_STYLE` の値を変えて保存してください  
+
+## 動作テスト環境
+- Chrome 91.0.4472.124 (Official Build) (64 ビット)  
+- Firefox 89.0.2 (64 ビット)  
+- Microsoft Edge 91.0.864.64 (公式ビルド) (64 ビット)  
+- Kinza 6.9.0 (64 ビット) // 制作環境  
+- Tampermonkey v4.13  
+
+## 更新履歴
+- 2021/07/06 `0.1` gistに初版公開  
+- 2021/07/07 `0.2` update  
+  - UserScript 追加  
+  - テスト環境 追加 (FireFox, Microsoft Edge)  
+- 2021/07/08  
+  - ドキュメントの整理  
+- 2021/07/21 `0.3` update  
+  - 新エディタ対応  
+  - githubに移行  
+  - Bookmarklet版とDevTools版を削除  
+- 2021/07/21 `0.4` update  
+  - 自動アップデートに対応 (要らない場合は`@updateURL`行を削除して保存してください)  
