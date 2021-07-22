@@ -13,14 +13,14 @@
 
 void(((w, d) => {
 	'use strict';
-    // エディタの既定値
+	// エディタの既定値
 	// 　false: 旧エディタ, true: 新エディタ
 	const DEFAULT_EDITOR = true;
-    // 折返しの既定値
+	// 折返しの既定値
 	// 　false: 折返しなし, true: 折返しあり
 	const DEFAULT_WRAP_STYLE = false;
-    // デバッグフラグ
-    const DEBUG = false;
+	// デバッグフラグ
+	const DEBUG = false;
 
 	let ef, t, b, cm;
 	const fEditorType = () => {
@@ -32,7 +32,7 @@ void(((w, d) => {
 		let bWrapState
 		switch (fEditorType()) {
 			case "CodeMirror":
-			// [新エディタ]
+				// [新エディタ]
 				if (bWrapState = cm.classList.contains("CodeMirror-wrap")) {
 					cm.classList.remove("CodeMirror-wrap");
 				} else {
@@ -41,10 +41,14 @@ void(((w, d) => {
 				// wrap をONにしたとき水平スクロールの最大値がずれる現象の対処
 				cm.querySelector("div.CodeMirror-scroll").style.width = bWrapState == false ? "" : "100%";
 				// wrap をONにしたとき垂直スクロールがおかしくなる現象の対処
-				w.dispatchEvent(new Event("resize", {bubbles: true, cancelable: false, composed: true}));
+				w.dispatchEvent(new Event("resize", {
+					bubbles: true,
+					cancelable: false,
+					composed: true
+				}));
 				break;
 			default:
-			// [旧エディタ]
+				// [旧エディタ]
 				bWrapState = t.getAttribute("wrap") != "off"
 				t.setAttribute("wrap", bWrapState == false ? "soft" : "off");
 				break;
@@ -56,8 +60,7 @@ void(((w, d) => {
 		if (t.getAttribute("wrap") != "off") return;
 		if (t.value.substr(0, t.selectionStart).slice(-1) == "\n") t.scrollLeft = 0;
 	}
-
-    // 初期化関数
+	// 初期化関数
 	const fLoad = () => {
 		if (!(ef = d.querySelector("#edit-form"))) return void 0;
 		if (!(ef.querySelector("#to-new-editor") && ef.querySelector("#to-old-editor"))) return void 0;
