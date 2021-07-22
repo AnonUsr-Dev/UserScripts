@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Wrap-style Switcher for NijiWiki
 // @namespace    https://github.com/AnonUsr-Dev/UserScripts
-// @version      0.3
+// @version      0.
 // @description  Editフォームの折返し切り替えや改行時のスクロールずれを解決します
 // @author       UnonUsr-Dev
 // @match        https://wikiwiki.jp/nijisanji/?cmd=edit*
