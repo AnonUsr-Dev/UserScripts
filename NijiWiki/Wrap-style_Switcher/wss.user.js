@@ -7,6 +7,8 @@
 // @match        https://wikiwiki.jp/nijisanji/?cmd=edit*
 // @match        https://wikiwiki.jp/nijisanji/?cmd=revert*
 // @match        https://wikiwiki.jp/nijisanji/?cmd=add*
+// @updateURL    https://github.com/AnonUsr-Dev/UserScripts/raw/main/NijiWiki/Wrap-style_Switcher/wss.user.js
+// @downloadURL  https://github.com/AnonUsr-Dev/UserScripts/raw/main/NijiWiki/Wrap-style_Switcher/wss.user.js
 // ==/UserScript==
 
 void(((w, d) => {
