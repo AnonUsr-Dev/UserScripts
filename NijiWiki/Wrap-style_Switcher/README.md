@@ -1,6 +1,9 @@
 ## はじめに
 編集フォームの折返しが使いにくいと思ったのでスクリプト書きました  
-
+  
+**※ 0.2以前のバージョンは現行版と競合する可能性があるのでダッシュボードから手動で削除してください**  
+  
+  0.2移行は同一スクリプトとして認識されると思うのでUpdateの確認だけ
 ## 動作
 #### 折り返しなし
 ![image](https://user-images.githubusercontent.com/84770944/126604148-9d896ec2-8a93-4528-9142-f2f327eaad4d.png)
@@ -10,15 +13,19 @@
 ## 使い方
 1. ブラウザに合ったUserScriptを実行できる拡張機能を [Tampermonkey](https://www.tampermonkey.net/) 等からインストールする  
 (Tampermonkey以外でも動くはずですが動作テストしてません)
-2. [UserScript](https://github.com/AnonUsr-Dev/UserScripts/blob/main/NijiWiki/Wrap-style_Switcher/wss.user.js) の[Raw]からインストール  
+2. 0.2以前のバージョンがインストールされている場合ダッシュボードからアンインストールする
+![image](https://user-images.githubusercontent.com/84770944/126610500-982ecfd7-b81f-4fa8-acea-6566a2c300f3.png)
+3. [UserScript](https://github.com/AnonUsr-Dev/UserScripts/blob/main/NijiWiki/Wrap-style_Switcher/wss.user.js#raw-url) の [Raw] からインストール  
 ![image](https://user-images.githubusercontent.com/84770944/126606836-344aedad-f8a2-4134-80d6-22c11baf93f1.png)
-3. インストールする (画像は旧バージョン)  
-![image](https://user-images.githubusercontent.com/84770944/124894360-87f7d300-e016-11eb-94cc-bf656f9c21b1.png)
-4. Editページで自動実行されます(折返しの切り替えは以下に追加されたボタンから)  
+4. インストールする  
+![image](https://user-images.githubusercontent.com/84770944/126608337-f8cc994d-80f8-49cc-aea3-ff15e9ba46d8.png)
+5. Editページで自動実行されます(折返しの切り替えは以下に追加されたボタンから)  
 ![image](https://user-images.githubusercontent.com/84770944/124894586-c2fa0680-e016-11eb-9dae-cb7851e9cd07.png)
 
 初期状態を変えたい場合はTampermonkeyのダッシュボードから Wrap-style Switcher for NijiWiki を選び  
 ソースの `DEFAULT_EDITOR` と `DEFAULT_WRAP_STYLE` の値を変えて保存してください  
+既定値は次の画像のように設定されています  
+![image](https://user-images.githubusercontent.com/84770944/126611020-8dd843e4-3df8-4d9f-bd80-36c22b1ffebb.png)
 
 ## 動作テスト環境
 - Chrome 91.0.4472.124 (Official Build) (64 ビット)  
