@@ -69,7 +69,7 @@ void(
 			aBack.outerHTML = "Ref Page: " + aBack.outerHTML;
 			// divDateBar: DateBarを追加
 			d.querySelector("#title").after(divDateBar);
-			divDateBar.id = "UnonUsr-Dev-DateBar";
+			divDateBar.id = "AnonUsr-Dev-DateBar";
 			divDateBar.style.textAlign = "right";
 			// input: type=date
 			inputDate = divDateBar.appendChild(d.createElement("input"));
