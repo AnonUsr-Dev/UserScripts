@@ -3,7 +3,7 @@
 // @namespace    https://github.com/AnonUsr-Dev/UserScripts
 // @version      0.4
 // @description  Editフォームの折返し切り替えや改行時のスクロールずれを解決します
-// @author       UnonUsr-Dev
+// @author       AnonUsr-Dev
 // @match        https://wikiwiki.jp/nijisanji/?cmd=edit*
 // @match        https://wikiwiki.jp/nijisanji/?cmd=revert*
 // @match        https://wikiwiki.jp/nijisanji/?cmd=add*
