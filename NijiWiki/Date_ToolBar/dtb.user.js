@@ -3,7 +3,7 @@
 // @namespace    https://github.com/AnonUsr-Dev/UserScripts
 // @version      0.1
 // @description  配信予定の日付移動を補助するツールバーを追加します
-// @author       UnonUsr-Dev
+// @author       AnonUsr-Dev
 // @match        https://wikiwiki.jp/nijisanji/?cmd=edit*
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQI12NgYAAAAAMAASDVlMcAAAAASUVORK5CYII=
 // @updateURL    https://github.com/AnonUsr-Dev/UserScripts/raw/main/NijiWiki/Date_ToolBar/dtb.user.js
@@ -17,7 +17,7 @@ void(
 		const search = new URLSearchParams(location.search);
 		const sPage = search.get("page")
 		const sPageRef = search.get("refpage");
-		const dateInitStep = Number.isInteger(parseInt(search.get("uudds"))) ? parseInt(search.get("uudds")) : 1;
+		const dateInitStep = Number.isInteger(parseInt(search.get("auddtb"))) ? parseInt(search.get("auddtb")) : 1;
 		const dateInit = sPage.replace("海外ライバー総合/", "").replace("配信予定/", "");
 		const dateMin = ~sPage.indexOf("海外ライバー総合/") ? "2021-05-16" : "2018-02-08";
 		const divDateBar = d.createElement("div");
@@ -30,15 +30,15 @@ void(
 			if (!/\d{4}[\-\/]\d{2}[\-\/]\d{2}/.test(sDate)) return;
 			sDate = sDate.replaceAll("/", "-");
 			search.set("page", sPage.replace(/配信予定\/\d{4}-\d{2}-\d{2}/, "配信予定/" + sDate));
-			if (search.get("uudds")) {
+			if (search.get("auddtb")) {
 				if (inputNum.value != 1) {
-					search.set("uudds", inputNum.value);
+					search.set("auddtb", inputNum.value);
 				} else {
-					search.delete("uudds");
+					search.delete("auddtb");
 				}
 			} else {
 				if (inputNum.value != 1) {
-					search.append("uudds", inputNum.value);
+					search.append("auddtb", inputNum.value);
 				}
 			}
 			if (DEBUG) {
