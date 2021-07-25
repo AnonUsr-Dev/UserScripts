@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Date ToolBar for NijiWiki
 // @namespace    https://github.com/AnonUsr-Dev/UserScripts
-// @version      0.1
+// @version      0.2
 // @description  配信予定の日付移動を補助するツールバーを追加します
 // @author       AnonUsr-Dev
 // @match        https://wikiwiki.jp/nijisanji/?cmd=edit*
@@ -66,7 +66,7 @@ void(
 			aBack.href = encodeURI("/nijisanji/" + sPageRef);
 			aBack.innerText = sPageRef;
 			d.querySelector("#ctime").before(aBack);
-			aBack.outerHTML = "Ref Page: " + aBack.outerHTML;
+			aBack.outerHTML = "参照元ページ: " + aBack.outerHTML;
 			// divDateBar: DateBarを追加
 			d.querySelector("#title").after(divDateBar);
 			divDateBar.id = "AnonUsr-Dev-DateBar";
