@@ -1,12 +1,14 @@
 // ==UserScript==
 // @name         Wrap-style Switcher for NijiWiki
 // @namespace    https://github.com/AnonUsr-Dev/UserScripts
-// @version      0.4
-// @description  Editフォームの折返し切り替えや改行時のスクロールずれを解決します
-// @author       AnonUsr-Dev
+// @version      0.5
+// @description  編集フォームの折返し切り替えや改行時のスクロールずれを解決します
+// @author       UnonUsr-Dev
 // @match        https://wikiwiki.jp/nijisanji/?cmd=edit*
 // @match        https://wikiwiki.jp/nijisanji/?cmd=revert*
 // @match        https://wikiwiki.jp/nijisanji/?cmd=add*
+// @match        https://wikiwiki.jp/nijisanji/?cmd=areaedit*
+// @icon         data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAwIDI0IDI0IiB3aWR0aD0iMjRweCIgZmlsbD0iI0ZGRkZGRiI+PHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik00IDE5aDZ2LTJINHYyek0yMCA1SDR2MmgxNlY1em0tMyA2SDR2MmgxMy4yNWMxLjEgMCAyIC45IDIgMnMtLjkgMi0yIDJIMTV2LTJsLTMgMyAzIDN2LTJoMmMyLjIxIDAgNC0xLjc5IDQtNHMtMS43OS00LTQtNHoiLz48L3N2Zz4=
 // @updateURL    https://github.com/AnonUsr-Dev/UserScripts/raw/main/NijiWiki/Wrap-style_Switcher/wss.user.js
 // @downloadURL  https://github.com/AnonUsr-Dev/UserScripts/raw/main/NijiWiki/Wrap-style_Switcher/wss.user.js
 // ==/UserScript==
@@ -21,7 +23,6 @@ void(((w, d) => {
 	const DEFAULT_WRAP_STYLE = false;
 	// デバッグフラグ
 	const DEBUG = false;
-
 	let ef, t, b, cm;
 	const fEditorType = () => {
 		if (cm = d.querySelector("#edit-form>div>div.CodeMirror")) return "CodeMirror";
@@ -64,7 +65,7 @@ void(((w, d) => {
 	const fLoad = () => {
 		if (!(ef = d.querySelector("#edit-form"))) return void 0;
 		if (!(ef.querySelector("#to-new-editor") && ef.querySelector("#to-old-editor"))) return void 0;
-		if (!(t = ef.querySelector("div.edit_form>textarea[name='msg']"))) return void 0;
+		if (!(t = ef.querySelector("div.edit_form>textarea[name='msg'], div.edit_form>textarea[name='areaedit_msg']"))) return void 0;
 		if (DEFAULT_EDITOR) {
 			if (fEditorType() != "CodeMirror") return void ef.querySelector("#to-new-editor").click();
 		} else {
@@ -88,8 +89,13 @@ void(((w, d) => {
 		clearInterval(idLoad);
 		if (DEBUG) console.log("Wrap-style Switcher 2434: done.");
 	}
+	const fTimeout = () => {
+		clearInterval(idLoad);
+		if (DEBUG) console.log("Wrap-style Switcher 2434: timeout.");
+	}
 	// 初期化関数をページ読み込み後に実行させる
 	// -> 非アクティブのバックグラウンドタブでonloadイベントが発火しない事があるため実装変更
 	//    -> w.addEventListener("load", f) -> setInterval(f, 100)
 	const idLoad = setInterval(fLoad, 100);
+	setTimeout(fTimeout, 10000)
 })(window, document))
