@@ -52,3 +52,6 @@
   - `#areaedit`のフォームで動作しないと報告頂いたためareaedit pluginの編集フォームに対応しました
   - 初期化関数が何らかの原因により要素を見つけられない場合に無限ループするので一応タイムアウトつけました
   - iconの追加
+- 2021/08/17 `0.6` update
+  - `新エディタ(β版 ver 0.1.2)` に対応
+  - ([@WIKIWIKI_Japan](https://twitter.com/WIKIWIKI_Japan/status/1427618449887350786) とのことです)
