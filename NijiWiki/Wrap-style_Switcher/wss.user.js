@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Wrap-style Switcher for NijiWiki
 // @namespace    https://github.com/AnonUsr-Dev/UserScripts
-// @version      0.6
+// @version      0.7
 // @description  編集フォームの折返し切り替えや改行時のスクロールずれを解決します
-// @author       UnonUsr-Dev
+// @author       AnonUsr-Dev
 // @match        https://wikiwiki.jp/nijisanji/?cmd=edit*
 // @match        https://wikiwiki.jp/nijisanji/?cmd=revert*
 // @match        https://wikiwiki.jp/nijisanji/?cmd=add*
@@ -21,16 +21,21 @@ void(((w, d) => {
 	// 折返しの既定値
 	// 　false: 折返しなし, true: 折返しあり
 	const DEFAULT_WRAP_STYLE = false;
-	// デバッグフラグ
+
+    // デバッグ関係
 	const DEBUG = false;
-	let ef, t, b, cm, et;
+	const DEBUG_LABEL = "Wrap-style Switcher 2434";
+	const fLog = console.log;
+
+	// スクリプト開始
+    let ef, t, b, cm, et;
 	const fEditorType = () => {
 		if (cm = ef.querySelector("div.edit_form>div.CodeMirror")) return "CodeMirror";
 		return "textarea";
 	}
 	// トグルボタンの動作
 	const fToggleWrap = () => {
-		let bWrapState
+		let bWrapState;
 		switch (fEditorType()) {
 			case "CodeMirror":
 				// [新エディタ]
@@ -50,11 +55,12 @@ void(((w, d) => {
 				break;
 			default:
 				// [旧エディタ]
-				bWrapState = t.getAttribute("wrap") != "off"
+				bWrapState = t.getAttribute("wrap") != "off";
 				t.setAttribute("wrap", bWrapState == false ? "soft" : "off");
 				break;
 		}
 		b.innerText = "折返し" + (bWrapState == true ? "ON" : "OFF");
+		return;
 	}
 	// [旧エディタ] wrap="off" 時のスクロール位置修正
 	const fFixHorizontalScroll = () => {
@@ -63,17 +69,14 @@ void(((w, d) => {
 	}
 	// 初期化関数
 	const fLoad = () => {
-		if (DEBUG) console.log("Wrap-style Switcher 2434: get form");
+		if (DEBUG) fLog(DEBUG_LABEL + ": get form");
 		if (!(ef = d.querySelector("#content>div>form"))) return void 0;
-		if (DEBUG) console.log("Wrap-style Switcher 2434: get editor-toggle button");
+		if (DEBUG) fLog(DEBUG_LABEL + ": get editor-toggle button");
 		if (!(et = ef.querySelector("div>p>a[href='#']"))) return void 0;
-		if (DEBUG) console.log("Wrap-style Switcher 2434: get textarea[name$='msg']");
+		if (DEBUG) fLog(DEBUG_LABEL + ": get textarea[name$='msg']");
 		if (!(t = ef.querySelector("div.edit_form>textarea[name='msg'], div.edit_form>textarea[name='areaedit_msg']"))) return void 0;
-		if (DEFAULT_EDITOR) {
-			if (fEditorType() != "CodeMirror" && et.innerText.indexOf("新エディタ") != -1) return void et.click();
-		} else {
-			if (fEditorType() == "CodeMirror" && et.innerText.indexOf("旧エディタ") != -1) return void et.click();
-		}
+		if (DEBUG) fLog(DEBUG_LABEL + ": switch editor style");
+		if (((fEditorType() != "CodeMirror") == (DEFAULT_EDITOR ? true : false)) && (et.innerText.indexOf((DEFAULT_EDITOR ? "新" : "旧") + "エディタ") != -1)) return void et.click();
 		// [新?・旧エディタ] 改行時のスクロールずれ修正 (新エディタの方はずれない？、悪影響無さそうなので旧仕様を保持)
 		t.style.overflowAnchor = "none";
 		// [旧エディタ] スクロールの位置修正をイベントリスナー追加
@@ -85,23 +88,29 @@ void(((w, d) => {
 		b.innerText = "Loading...";
 		b = ef.querySelector("div.preview-buttons").appendChild(b);
 		b.onclick = fToggleWrap;
-		// デフォルトで実行させたいので最後にn回実行
-		// TODO: たまに折り返さない不具合 // 取り敢えずtimeoutで対処
-		setTimeout(() => {
-			fToggleWrap();
-			if (DEFAULT_WRAP_STYLE == true) fToggleWrap();
-		}, 1000);
 		// Intervalを解除
 		clearInterval(idLoad);
-		if (DEBUG) console.log("Wrap-style Switcher 2434: done.");
+		if (DEBUG) fLog(DEBUG_LABEL + ": load completed.");
+	}
+	const fInitWrapState = () => {
+		if (!b) return;
+		if (DEFAULT_EDITOR == true && !ef.querySelector("div.edit_form>div.CodeMirror")) return;
+		// デフォルトで実行させたいので最後にn回実行
+		fToggleWrap();
+		if (DEFAULT_WRAP_STYLE == true) fToggleWrap();
+		// Intervalを解除
+		clearInterval(idInitWrapState);
+		if (DEBUG) fLog(DEBUG_LABEL + ": wrap state initalized.");
 	}
 	const fTimeout = () => {
 		clearInterval(idLoad);
-		if (DEBUG) console.log("Wrap-style Switcher 2434: timeout.");
+		clearInterval(idInitWrapState);
+		if (DEBUG) fLog(DEBUG_LABEL + ": timeout.");
 	}
 	// 初期化関数をページ読み込み後に実行させる
-	// -> 非アクティブのバックグラウンドタブでonloadイベントが発火しない事があるため実装変更
+	// -> 非アクティブのバックグラウンドタブでonloadイベントが発火しない事があるため実装変更 (0.2)
 	//    -> w.addEventListener("load", f) -> setInterval(f, 100)
 	const idLoad = setInterval(fLoad, 100);
+	const idInitWrapState = setInterval(fInitWrapState, 100);
 	setTimeout(fTimeout, 10000)
 })(window, document))
