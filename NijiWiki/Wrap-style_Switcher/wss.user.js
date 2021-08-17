@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Wrap-style Switcher for NijiWiki
 // @namespace    https://github.com/AnonUsr-Dev/UserScripts
-// @version      0.5
+// @version      0.6
 // @description  編集フォームの折返し切り替えや改行時のスクロールずれを解決します
 // @author       UnonUsr-Dev
 // @match        https://wikiwiki.jp/nijisanji/?cmd=edit*
@@ -23,9 +23,9 @@ void(((w, d) => {
 	const DEFAULT_WRAP_STYLE = false;
 	// デバッグフラグ
 	const DEBUG = false;
-	let ef, t, b, cm;
+	let ef, t, b, cm, et;
 	const fEditorType = () => {
-		if (cm = d.querySelector("#edit-form>div>div.CodeMirror")) return "CodeMirror";
+		if (cm = ef.querySelector("div.edit_form>div.CodeMirror")) return "CodeMirror";
 		return "textarea";
 	}
 	// トグルボタンの動作
@@ -63,13 +63,16 @@ void(((w, d) => {
 	}
 	// 初期化関数
 	const fLoad = () => {
-		if (!(ef = d.querySelector("#edit-form"))) return void 0;
-		if (!(ef.querySelector("#to-new-editor") && ef.querySelector("#to-old-editor"))) return void 0;
+		if (DEBUG) console.log("Wrap-style Switcher 2434: get form");
+		if (!(ef = d.querySelector("#content>div>form"))) return void 0;
+		if (DEBUG) console.log("Wrap-style Switcher 2434: get editor-toggle button");
+		if (!(et = ef.querySelector("div>p>a[href='#']"))) return void 0;
+		if (DEBUG) console.log("Wrap-style Switcher 2434: get textarea[name$='msg']");
 		if (!(t = ef.querySelector("div.edit_form>textarea[name='msg'], div.edit_form>textarea[name='areaedit_msg']"))) return void 0;
 		if (DEFAULT_EDITOR) {
-			if (fEditorType() != "CodeMirror") return void ef.querySelector("#to-new-editor").click();
+			if (fEditorType() != "CodeMirror" && et.innerText.indexOf("新エディタ") != -1) return void et.click();
 		} else {
-			if (fEditorType() == "CodeMirror") return void ef.querySelector("#to-old-editor").click();
+			if (fEditorType() == "CodeMirror" && et.innerText.indexOf("旧エディタ") != -1) return void et.click();
 		}
 		// [新?・旧エディタ] 改行時のスクロールずれ修正 (新エディタの方はずれない？、悪影響無さそうなので旧仕様を保持)
 		t.style.overflowAnchor = "none";
@@ -80,11 +83,14 @@ void(((w, d) => {
 		b.id = "wrap-switcher-button";
 		b.type = "button";
 		b.innerText = "Loading...";
-		b = ef.querySelector("#preview-buttons").appendChild(b);
+		b = ef.querySelector("div.preview-buttons").appendChild(b);
 		b.onclick = fToggleWrap;
 		// デフォルトで実行させたいので最後にn回実行
-		fToggleWrap();
-		if (DEFAULT_WRAP_STYLE == true) fToggleWrap();
+		// TODO: たまに折り返さない不具合 // 取り敢えずtimeoutで対処
+		setTimeout(() => {
+			fToggleWrap();
+			if (DEFAULT_WRAP_STYLE == true) fToggleWrap();
+		}, 1000);
 		// Intervalを解除
 		clearInterval(idLoad);
 		if (DEBUG) console.log("Wrap-style Switcher 2434: done.");
