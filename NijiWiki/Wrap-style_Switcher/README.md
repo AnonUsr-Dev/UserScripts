@@ -55,3 +55,5 @@
 - 2021/08/17 `0.6` update
   - `新エディタ(β版 ver 0.1.2)` に対応
   - ([@WIKIWIKI_Japan](https://twitter.com/WIKIWIKI_Japan/status/1427618449887350786) とのことです)
+- 2021/08/18 `0.7` update
+  - 稀に折返しの初期化がうまく行かない現象の応急処置を対処
