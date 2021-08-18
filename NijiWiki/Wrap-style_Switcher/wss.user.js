@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Wrap-style Switcher for NijiWiki
 // @namespace    https://github.com/AnonUsr-Dev/UserScripts
-// @version      0.7
+// @version      0.8
 // @description  編集フォームの折返し切り替えや改行時のスクロールずれを解決します
 // @author       AnonUsr-Dev
 // @match        https://wikiwiki.jp/nijisanji/?cmd=edit*
@@ -21,14 +21,12 @@ void(((w, d) => {
 	// 折返しの既定値
 	// 　false: 折返しなし, true: 折返しあり
 	const DEFAULT_WRAP_STYLE = false;
-
-    // デバッグ関係
+	// デバッグ関係
 	const DEBUG = false;
 	const DEBUG_LABEL = "Wrap-style Switcher 2434";
 	const fLog = console.log;
-
 	// スクリプト開始
-    let ef, t, b, cm, et;
+	let ef, t, b, cm, et;
 	const fEditorType = () => {
 		if (cm = ef.querySelector("div.edit_form>div.CodeMirror")) return "CodeMirror";
 		return "textarea";
@@ -71,12 +69,12 @@ void(((w, d) => {
 	const fLoad = () => {
 		if (DEBUG) fLog(DEBUG_LABEL + ": get form");
 		if (!(ef = d.querySelector("#content>div>form"))) return void 0;
-		if (DEBUG) fLog(DEBUG_LABEL + ": get editor-toggle button");
-		if (!(et = ef.querySelector("div>p>a[href='#']"))) return void 0;
+		if (DEBUG) fLog(DEBUG_LABEL + ": get editor-toggle checkbox");
+		if (!(et = ef.querySelector("div.edit_form>p>label>input[type=checkbox]"))) return void 0;
 		if (DEBUG) fLog(DEBUG_LABEL + ": get textarea[name$='msg']");
 		if (!(t = ef.querySelector("div.edit_form>textarea[name='msg'], div.edit_form>textarea[name='areaedit_msg']"))) return void 0;
 		if (DEBUG) fLog(DEBUG_LABEL + ": switch editor style");
-		if (((fEditorType() != "CodeMirror") == (DEFAULT_EDITOR ? true : false)) && (et.innerText.indexOf((DEFAULT_EDITOR ? "新" : "旧") + "エディタ") != -1)) return void et.click();
+		if (DEFAULT_EDITOR != et.checked) return void et.click();
 		// [新?・旧エディタ] 改行時のスクロールずれ修正 (新エディタの方はずれない？、悪影響無さそうなので旧仕様を保持)
 		t.style.overflowAnchor = "none";
 		// [旧エディタ] スクロールの位置修正をイベントリスナー追加
