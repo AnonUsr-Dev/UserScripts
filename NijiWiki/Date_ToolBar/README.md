@@ -26,10 +26,10 @@
 大体[Wrap-style Switcher](https://github.com/AnonUsr-Dev/UserScripts/blob/main/NijiWiki/Wrap-style_Switcher/README.md#%E4%BD%BF%E3%81%84%E6%96%B9)の手順と同じなので分からなかったら参考にしてください
 
 ## 動作テスト環境
-- Chrome 最新バージョン (Official Build) (64 ビット)  
-- Firefox 最新バージョン (64 ビット)  
-- Microsoft Edge 最新バージョン (公式ビルド) (64 ビット)  
-- Kinza 最新バージョン (64 ビット) // 制作環境  
+- Chrome 最新版 (Official Build) (64 ビット)  
+- Firefox 最新版 (64 ビット)  
+- Microsoft Edge 最新版 (公式ビルド) (64 ビット)  
+- Kinza 最新版 (64 ビット) // 制作環境  
 - Tampermonkey v4.13  
 
 ## 更新履歴
