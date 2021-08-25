@@ -1,11 +1,13 @@
 // ==UserScript==
 // @name         Date ToolBar for NijiWiki
 // @namespace    https://github.com/AnonUsr-Dev/UserScripts
-// @version      0.2
+// @version      0.3
 // @description  配信予定の日付移動を補助するツールバーを追加します
 // @author       AnonUsr-Dev
 // @match        https://wikiwiki.jp/nijisanji/?cmd=edit*
-// @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQI12NgYAAAAAMAASDVlMcAAAAASUVORK5CYII=
+// @match        https://wikiwiki.jp/nijisanji/%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A/*
+// @match        https://wikiwiki.jp/nijisanji/%E6%B5%B7%E5%A4%96%E3%83%A9%E3%82%A4%E3%83%90%E3%83%BC%E7%B7%8F%E5%90%88/%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A/*
+// @icon         data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAwIDI0IDI0IiB3aWR0aD0iMjRweCIgZmlsbD0iI0ZGRkZGRiI+PHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0yMCAzaC0xVjFoLTJ2Mkg3VjFINXYySDRjLTEuMSAwLTIgLjktMiAydjE2YzAgMS4xLjkgMiAyIDJoMTZjMS4xIDAgMi0uOSAyLTJWNWMwLTEuMS0uOS0yLTItMnptMCAxOEg0VjhoMTZ2MTN6Ii8+PC9zdmc+
 // @updateURL    https://github.com/AnonUsr-Dev/UserScripts/raw/main/NijiWiki/Date_ToolBar/dtb.user.js
 // @downloadURL  https://github.com/AnonUsr-Dev/UserScripts/raw/main/NijiWiki/Date_ToolBar/dtb.user.js
 // ==/UserScript==
@@ -14,15 +16,21 @@ void(
 	((d) => {
 		const DEBUG = false;
 		const log = console.log;
-		const search = new URLSearchParams(location.search);
-		const sPage = search.get("page")
+		const pathname = decodeURIComponent(location.pathname);
+		const urlSource = location.search.length ? location.href : d.referrer;
+		const search = new URLSearchParams(new URL(urlSource).search);
+		const sPage = search.get("page");
 		const sPageRef = search.get("refpage");
 		const dateInitStep = Number.isInteger(parseInt(search.get("auddtb"))) ? parseInt(search.get("auddtb")) : 1;
 		const dateInit = sPage.replace("海外ライバー総合/", "").replace("配信予定/", "");
 		const dateMin = ~sPage.indexOf("海外ライバー総合/") ? "2021-05-16" : "2018-02-08";
 		const divDateBar = d.createElement("div");
-		if (!dateInit.length) return;
-		if (!~sPage.indexOf("配信予定/")) return;
+		switch (true) {
+			case dateInit.length && sPage.indexOf("配信予定/") != -1:
+				break;
+			default:
+				return;
+		}
 		let aBack;
 		let inputDate, inputNum;
 		let btnDate, btnTDay, btnPrev, btnNext;
@@ -45,7 +53,7 @@ void(
 				log((search.toString()));
 				log(decodeURIComponent(search.toString()));
 			} else {
-				location.search = search.toString();
+				location.href = urlSource.split("?")[0] + "?" + search.toString();
 			}
 		}
 		const fGetDate = (n = 0, d) => {
@@ -132,4 +140,4 @@ void(
 		}
 		const idLoad = setInterval(fLoad, 100);
 	})(document)
-)
+);
