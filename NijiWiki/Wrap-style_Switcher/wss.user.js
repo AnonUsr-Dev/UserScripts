@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Wrap-style Switcher for NijiWiki
 // @namespace    https://github.com/AnonUsr-Dev/UserScripts
-// @version      0.9
+// @version      1
 // @description  編集フォームの折返し切り替えや改行時のスクロールずれを解決します
 // @author       AnonUsr-Dev
 // @match        https://wikiwiki.jp/nijisanji/?*
@@ -18,24 +18,28 @@ void(((w, d) => {
 	// 折返しの既定値
 	// 　false: 折返しなし, true: 折返しあり
 	const DEFAULT_WRAP_STYLE = false;
+	// "タイムスタンプを更新しない"を隠す
+	// 　false: 隠さない, true: 隠す
+	const HIDDEN_ADMIN_TIMESTAMP = true;
 
-	// デバッグ関係
+    // デバッグ関係
 	const DEBUG = false;
 	const DEBUG_LABEL = "Wrap-style Switcher 2434";
 	const fLog = console.log;
 
-	// スクリプトの実行ページ判定
+    // スクリプトの実行ページ判定
 	const search = new URLSearchParams(d.location.search);
 	const aAllowCmdParams = ["edit", "revert", "add", "areaedit"];
 	if (aAllowCmdParams.includes(search.get("cmd").toLowerCase()) == false) return;
 
-	// スクリプト開始
+    // スクリプト開始
 	let ef, t, b, cm, et;
 	const fEditorType = () => {
 		if (cm = ef.querySelector("div.edit_form>div.CodeMirror")) return "CodeMirror";
 		return "textarea";
 	}
-	// トグルボタンの動作
+
+    // トグルボタンの動作
 	const fToggleWrap = () => {
 		let bWrapState;
 		switch (fEditorType()) {
@@ -64,21 +68,26 @@ void(((w, d) => {
 		b.innerText = "折返し" + (bWrapState == true ? "ON" : "OFF");
 		return;
 	}
-	// [旧エディタ] wrap="off" 時のスクロール位置修正
+
+    // [旧エディタ] wrap="off" 時のスクロール位置修正
 	const fFixHorizontalScroll = () => {
 		if (t.getAttribute("wrap") != "off") return;
 		if (t.value.substr(0, t.selectionStart).slice(-1) == "\n") t.scrollLeft = 0;
 	}
+
 	// 初期化関数
 	const fLoad = () => {
 		if (DEBUG) fLog(DEBUG_LABEL + ": get form");
-		if (!(ef = d.querySelector("#content>div>form"))) return void 0;
+		// 2021/12/13 の仕様変更に応急処置 (formが取れなくなったのが原因)
+		if (!(ef = d.querySelector("#content>div form"))) return void 0;
 		if (DEBUG) fLog(DEBUG_LABEL + ": get editor-toggle checkbox");
 		if (!(et = ef.querySelector("div.edit_form>p>label>input[type=checkbox]"))) return void 0;
 		if (DEBUG) fLog(DEBUG_LABEL + ": get textarea[name$='msg']");
 		if (!(t = ef.querySelector("div.edit_form>textarea[name='msg'], div.edit_form>textarea[name='areaedit_msg']"))) return void 0;
 		if (DEBUG) fLog(DEBUG_LABEL + ": switch editor style");
 		if (DEFAULT_EDITOR != et.checked) return void et.click();
+		if (DEBUG) fLog(DEBUG_LABEL + ": set visible state of admin timestamp section");
+		if (HIDDEN_ADMIN_TIMESTAMP) d.querySelector("input[type='checkbox'][name='notimestamp']").parentElement.style.display = "none";
 		// [新?・旧エディタ] 改行時のスクロールずれ修正 (新エディタの方はずれない？、悪影響無さそうなので旧仕様を保持)
 		t.style.overflowAnchor = "none";
 		// [旧エディタ] スクロールの位置修正をイベントリスナー追加
@@ -94,7 +103,8 @@ void(((w, d) => {
 		clearInterval(idLoad);
 		if (DEBUG) fLog(DEBUG_LABEL + ": load completed.");
 	}
-	// Wrap-style 初期化関数
+
+    // Wrap-style 初期化関数
 	const fInitWrapState = () => {
 		if (!b) return;
 		if (DEFAULT_EDITOR == true && !ef.querySelector("div.edit_form>div.CodeMirror")) return;
@@ -110,7 +120,8 @@ void(((w, d) => {
 		clearInterval(idInitWrapState);
 		if (DEBUG) fLog(DEBUG_LABEL + ": timeout.");
 	}
-	// 初期化関数をページ読み込み後に実行させる
+
+    // 初期化関数をページ読み込み後に実行させる
 	const idLoad = setInterval(fLoad, 100);
 	const idInitWrapState = setInterval(fInitWrapState, 100);
 	setTimeout(fTimeout, 10000)
