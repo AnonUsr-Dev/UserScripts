@@ -1,0 +1,37 @@
+/* Based on CodeMirror Example isotope theme (https://codemirror.net/theme/isotope.css) */
+/*
+
+    Name:       Isotope
+    Author:     David Desandro / Jan T. Sott
+
+    CodeMirror template by Jan T. Sott (https://github.com/idleberg/base16-codemirror)
+    Original Base16 color scheme by Chris Kempson (https://github.com/chriskempson/base16)
+
+*/
+
+.cm-s-wiki-syntax.CodeMirror {background: #000000; color: #e0e0e0;}
+.cm-s-wiki-syntax div.CodeMirror-selected {background: #404040 !important;}
+.cm-s-wiki-syntax .CodeMirror-gutters {background: #000000; border-right: 0px;}
+.cm-s-wiki-syntax .CodeMirror-linenumber {color: #808080;}
+.cm-s-wiki-syntax .CodeMirror-cursor {border-left: 1px solid #c0c0c0 !important;}
+
+.cm-s-wiki-syntax span.cm-comment {color: #3300ff;}
+.cm-s-wiki-syntax span.cm-atom {color: #cc00ff;}
+.cm-s-wiki-syntax span.cm-number {color: #cc00ff;}
+
+.cm-s-wiki-syntax span.cm-property, .cm-s-wiki-syntax span.cm-attribute {color: #33ff00;}
+.cm-s-wiki-syntax span.cm-keyword {color: #ff0000;}
+.cm-s-wiki-syntax span.cm-string {color: #ff0099;}
+
+.cm-s-wiki-syntax span.cm-variable {color: #33ff00;}
+.cm-s-wiki-syntax span.cm-variable-2 {color: #0066ff;}
+.cm-s-wiki-syntax span.cm-def {color: #ff9900;}
+.cm-s-wiki-syntax span.cm-error {background: #ff0000; color: #c0c0c0;}
+.cm-s-wiki-syntax span.cm-bracket {color: #e0e0e0;}
+.cm-s-wiki-syntax span.cm-tag {color: #ff0000;}
+.cm-s-wiki-syntax span.cm-link {color: #cc00ff;}
+
+.cm-s-wiki-syntax .CodeMirror-matchingbracket { text-decoration: underline; color: white !important;}
+.cm-s-wiki-syntax .CodeMirror-activeline-background { background: #202020; }
+
+

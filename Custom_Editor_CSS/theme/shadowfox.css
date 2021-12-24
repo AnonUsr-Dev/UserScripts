@@ -1,0 +1,55 @@
+/* Based on CodeMirror Example shadowfox theme (https://codemirror.net/theme/shadowfox.css) */
+/*
+
+    Name:       shadowfox
+    Author:     overdodactyl (http://github.com/overdodactyl)
+
+    Original shadowfox color scheme by Firefox
+
+*/
+
+.cm-s-wiki-syntax.CodeMirror { background: #2a2a2e; color: #b1b1b3; }
+.cm-s-wiki-syntax div.CodeMirror-selected { background: #353B48; }
+.cm-s-wiki-syntax .CodeMirror-line::selection, .cm-s-wiki-syntax .CodeMirror-line > span::selection, .cm-s-wiki-syntax .CodeMirror-line > span > span::selection { background: #353B48; }
+.cm-s-wiki-syntax .CodeMirror-line::-moz-selection, .cm-s-wiki-syntax .CodeMirror-line > span::-moz-selection, .cm-s-wiki-syntax .CodeMirror-line > span > span::-moz-selection { background: #353B48; }
+.cm-s-wiki-syntax .CodeMirror-gutters { background: #0c0c0d ; border-right: 1px solid #0c0c0d; }
+.cm-s-wiki-syntax .CodeMirror-guttermarker { color: #555; }
+.cm-s-wiki-syntax .CodeMirror-linenumber { color: #939393; }
+.cm-s-wiki-syntax .CodeMirror-cursor { border-left: 1px solid #fff; }
+
+.cm-s-wiki-syntax span.cm-comment { color: #939393; }
+.cm-s-wiki-syntax span.cm-atom { color: #FF7DE9; }
+.cm-s-wiki-syntax span.cm-quote { color: #FF7DE9; }
+.cm-s-wiki-syntax span.cm-builtin { color: #FF7DE9; }
+.cm-s-wiki-syntax span.cm-attribute { color: #FF7DE9; }
+.cm-s-wiki-syntax span.cm-keyword { color: #FF7DE9; }
+.cm-s-wiki-syntax span.cm-error { color: #FF7DE9; }
+
+.cm-s-wiki-syntax span.cm-number { color: #6B89FF; }
+.cm-s-wiki-syntax span.cm-string { color: #6B89FF; }
+.cm-s-wiki-syntax span.cm-string-2 { color: #6B89FF; }
+
+.cm-s-wiki-syntax span.cm-meta { color: #939393; }
+.cm-s-wiki-syntax span.cm-hr { color: #939393; }
+
+.cm-s-wiki-syntax span.cm-header { color: #75BFFF; }
+.cm-s-wiki-syntax span.cm-qualifier { color: #75BFFF; }
+.cm-s-wiki-syntax span.cm-variable-2 { color: #75BFFF; }
+
+.cm-s-wiki-syntax span.cm-property { color: #86DE74; }
+
+.cm-s-wiki-syntax span.cm-def { color: #75BFFF; }
+.cm-s-wiki-syntax span.cm-bracket { color: #75BFFF; }
+.cm-s-wiki-syntax span.cm-tag { color: #75BFFF; }
+.cm-s-wiki-syntax span.cm-link:visited { color: #75BFFF; }
+
+.cm-s-wiki-syntax span.cm-variable { color: #B98EFF; }
+.cm-s-wiki-syntax span.cm-variable-3 { color: #d7d7db; }
+.cm-s-wiki-syntax span.cm-link { color: #737373; }
+.cm-s-wiki-syntax span.cm-operator { color: #b1b1b3; }
+.cm-s-wiki-syntax span.cm-special { color: #d7d7db; }
+
+.cm-s-wiki-syntax .CodeMirror-activeline-background { background: rgba(185, 215, 253, .15) }
+.cm-s-wiki-syntax .CodeMirror-matchingbracket { outline: solid 1px rgba(255, 255, 255, .25); color: white !important; }
+
+

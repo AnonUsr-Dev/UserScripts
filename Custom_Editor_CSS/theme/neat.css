@@ -1,0 +1,15 @@
+/* Based on CodeMirror Example neat theme (https://codemirror.net/theme/neat.css) */
+.cm-s-wiki-syntax span.cm-comment { color: #a86; }
+.cm-s-wiki-syntax span.cm-keyword { line-height: 1em; font-weight: bold; color: blue; }
+.cm-s-wiki-syntax span.cm-string { color: #a22; }
+.cm-s-wiki-syntax span.cm-builtin { line-height: 1em; font-weight: bold; color: #077; }
+.cm-s-wiki-syntax span.cm-special { line-height: 1em; font-weight: bold; color: #0aa; }
+.cm-s-wiki-syntax span.cm-variable { color: black; }
+.cm-s-wiki-syntax span.cm-number, .cm-s-wiki-syntax span.cm-atom { color: #3a3; }
+.cm-s-wiki-syntax span.cm-meta { color: #555; }
+.cm-s-wiki-syntax span.cm-link { color: #3a3; }
+
+.cm-s-wiki-syntax .CodeMirror-activeline-background { background: #e8f2ff; }
+.cm-s-wiki-syntax .CodeMirror-matchingbracket { outline:1px solid grey; color:black !important; }
+
+

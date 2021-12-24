@@ -1,0 +1,8 @@
+/* Based on CodeMirror Example ambiance-mobile theme (https://codemirror.net/theme/ambiance-mobile.css) */
+.cm-s-wiki-syntax.CodeMirror {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+

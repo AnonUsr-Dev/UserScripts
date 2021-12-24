@@ -1,0 +1,28 @@
+/* Based on CodeMirror Example cobalt theme (https://codemirror.net/theme/cobalt.css) */
+.cm-s-wiki-syntax.CodeMirror { background: #002240; color: white; }
+.cm-s-wiki-syntax div.CodeMirror-selected { background: #b36539; }
+.cm-s-wiki-syntax .CodeMirror-line::selection, .cm-s-wiki-syntax .CodeMirror-line > span::selection, .cm-s-wiki-syntax .CodeMirror-line > span > span::selection { background: rgba(179, 101, 57, .99); }
+.cm-s-wiki-syntax .CodeMirror-line::-moz-selection, .cm-s-wiki-syntax .CodeMirror-line > span::-moz-selection, .cm-s-wiki-syntax .CodeMirror-line > span > span::-moz-selection { background: rgba(179, 101, 57, .99); }
+.cm-s-wiki-syntax .CodeMirror-gutters { background: #002240; border-right: 1px solid #aaa; }
+.cm-s-wiki-syntax .CodeMirror-guttermarker { color: #ffee80; }
+.cm-s-wiki-syntax .CodeMirror-guttermarker-subtle { color: #d0d0d0; }
+.cm-s-wiki-syntax .CodeMirror-linenumber { color: #d0d0d0; }
+.cm-s-wiki-syntax .CodeMirror-cursor { border-left: 1px solid white; }
+
+.cm-s-wiki-syntax span.cm-comment { color: #08f; }
+.cm-s-wiki-syntax span.cm-atom { color: #845dc4; }
+.cm-s-wiki-syntax span.cm-number, .cm-s-wiki-syntax span.cm-attribute { color: #ff80e1; }
+.cm-s-wiki-syntax span.cm-keyword { color: #ffee80; }
+.cm-s-wiki-syntax span.cm-string { color: #3ad900; }
+.cm-s-wiki-syntax span.cm-meta { color: #ff9d00; }
+.cm-s-wiki-syntax span.cm-variable-2, .cm-s-wiki-syntax span.cm-tag { color: #9effff; }
+.cm-s-wiki-syntax span.cm-variable-3, .cm-s-wiki-syntax span.cm-def, .cm-s-wiki-syntax .cm-type { color: white; }
+.cm-s-wiki-syntax span.cm-bracket { color: #d8d8d8; }
+.cm-s-wiki-syntax span.cm-builtin, .cm-s-wiki-syntax span.cm-special { color: #ff9e59; }
+.cm-s-wiki-syntax span.cm-link { color: #845dc4; }
+.cm-s-wiki-syntax span.cm-error { color: #9d1e15; }
+
+.cm-s-wiki-syntax .CodeMirror-activeline-background { background: #002D57; }
+.cm-s-wiki-syntax .CodeMirror-matchingbracket { outline:1px solid grey;color:white !important; }
+
+

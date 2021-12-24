@@ -1,0 +1,42 @@
+/* Based on CodeMirror Example gruvbox-dark theme (https://codemirror.net/theme/gruvbox-dark.css) */
+/*
+
+    Name:       gruvbox-dark
+    Author:     kRkk (https://github.com/krkk)
+
+    Original gruvbox color scheme by Pavel Pertsev (https://github.com/morhetz/gruvbox)
+
+*/
+
+.cm-s-wiki-syntax.CodeMirror, .cm-s-wiki-syntax .CodeMirror-gutters { background-color: #282828; color: #bdae93; }
+.cm-s-wiki-syntax .CodeMirror-gutters {background: #282828; border-right: 0px;}
+.cm-s-wiki-syntax .CodeMirror-linenumber {color: #7c6f64;}
+.cm-s-wiki-syntax .CodeMirror-cursor { border-left: 1px solid #ebdbb2; }
+.cm-s-wiki-syntax.cm-fat-cursor .CodeMirror-cursor { background-color: #8e8d8875 !important; }
+.cm-s-wiki-syntax .cm-animate-fat-cursor { background-color: #8e8d8875 !important; }
+.cm-s-wiki-syntax div.CodeMirror-selected { background: #928374; }
+.cm-s-wiki-syntax span.cm-meta { color: #83a598; }
+
+.cm-s-wiki-syntax span.cm-comment { color: #928374; }
+.cm-s-wiki-syntax span.cm-number, span.cm-atom { color: #d3869b; }
+.cm-s-wiki-syntax span.cm-keyword { color: #f84934; }
+
+.cm-s-wiki-syntax span.cm-variable { color: #ebdbb2; }
+.cm-s-wiki-syntax span.cm-variable-2 { color: #ebdbb2; }
+.cm-s-wiki-syntax span.cm-variable-3, .cm-s-wiki-syntax span.cm-type { color: #fabd2f; }
+.cm-s-wiki-syntax span.cm-operator { color: #ebdbb2; }
+.cm-s-wiki-syntax span.cm-callee { color: #ebdbb2; }
+.cm-s-wiki-syntax span.cm-def { color: #ebdbb2; }
+.cm-s-wiki-syntax span.cm-property { color: #ebdbb2; }
+.cm-s-wiki-syntax span.cm-string { color: #b8bb26; }
+.cm-s-wiki-syntax span.cm-string-2 { color: #8ec07c; }
+.cm-s-wiki-syntax span.cm-qualifier { color: #8ec07c; }
+.cm-s-wiki-syntax span.cm-attribute { color: #8ec07c; }
+
+.cm-s-wiki-syntax .CodeMirror-activeline-background { background: #3c3836; }
+.cm-s-wiki-syntax .CodeMirror-matchingbracket { background: #928374; color:#282828 !important; }
+
+.cm-s-wiki-syntax span.cm-builtin { color: #fe8019; }
+.cm-s-wiki-syntax span.cm-tag { color: #fe8019; }
+
+

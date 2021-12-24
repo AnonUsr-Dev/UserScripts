@@ -1,0 +1,40 @@
+/* Based on CodeMirror Example mbo theme (https://codemirror.net/theme/mbo.css) */
+/****************************************************************/
+/*   Based on mbonaci's Brackets mbo theme                      */
+/*   https://github.com/mbonaci/global/blob/master/Mbo.tmTheme  */
+/*   Create your own: http://tmtheme-editor.herokuapp.com       */
+/****************************************************************/
+
+.cm-s-wiki-syntax.CodeMirror { background: #2c2c2c; color: #ffffec; }
+.cm-s-wiki-syntax div.CodeMirror-selected { background: #716C62; }
+.cm-s-wiki-syntax .CodeMirror-line::selection, .cm-s-wiki-syntax .CodeMirror-line > span::selection, .cm-s-wiki-syntax .CodeMirror-line > span > span::selection { background: rgba(113, 108, 98, .99); }
+.cm-s-wiki-syntax .CodeMirror-line::-moz-selection, .cm-s-wiki-syntax .CodeMirror-line > span::-moz-selection, .cm-s-wiki-syntax .CodeMirror-line > span > span::-moz-selection { background: rgba(113, 108, 98, .99); }
+.cm-s-wiki-syntax .CodeMirror-gutters { background: #4e4e4e; border-right: 0px; }
+.cm-s-wiki-syntax .CodeMirror-guttermarker { color: white; }
+.cm-s-wiki-syntax .CodeMirror-guttermarker-subtle { color: grey; }
+.cm-s-wiki-syntax .CodeMirror-linenumber { color: #dadada; }
+.cm-s-wiki-syntax .CodeMirror-cursor { border-left: 1px solid #ffffec; }
+
+.cm-s-wiki-syntax span.cm-comment { color: #95958a; }
+.cm-s-wiki-syntax span.cm-atom { color: #00a8c6; }
+.cm-s-wiki-syntax span.cm-number { color: #00a8c6; }
+
+.cm-s-wiki-syntax span.cm-property, .cm-s-wiki-syntax span.cm-attribute { color: #9ddfe9; }
+.cm-s-wiki-syntax span.cm-keyword { color: #ffb928; }
+.cm-s-wiki-syntax span.cm-string { color: #ffcf6c; }
+.cm-s-wiki-syntax span.cm-string.cm-property { color: #ffffec; }
+
+.cm-s-wiki-syntax span.cm-variable { color: #ffffec; }
+.cm-s-wiki-syntax span.cm-variable-2 { color: #00a8c6; }
+.cm-s-wiki-syntax span.cm-def { color: #ffffec; }
+.cm-s-wiki-syntax span.cm-bracket { color: #fffffc; font-weight: bold; }
+.cm-s-wiki-syntax span.cm-tag { color: #9ddfe9; }
+.cm-s-wiki-syntax span.cm-link { color: #f54b07; }
+.cm-s-wiki-syntax span.cm-error { border-bottom: #636363; color: #ffffec; }
+.cm-s-wiki-syntax span.cm-qualifier { color: #ffffec; }
+
+.cm-s-wiki-syntax .CodeMirror-activeline-background { background: #494b41; }
+.cm-s-wiki-syntax .CodeMirror-matchingbracket { color: #ffb928 !important; }
+.cm-s-wiki-syntax .CodeMirror-matchingtag { background: rgba(255, 255, 255, .37); }
+
+

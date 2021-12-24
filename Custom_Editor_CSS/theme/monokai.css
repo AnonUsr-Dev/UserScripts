@@ -1,4 +1,5 @@
-/* Based on CodeMirror Example Monokai theme (https://codemirror.net/theme/monokai.css) */
+/* Based on CodeMirror Example monokai theme (https://codemirror.net/theme/monokai.css) */
+/* Based on Sublime Text's Monokai theme */
 
 .cm-s-wiki-syntax.CodeMirror { background: #272822; color: #f8f8f2; }
 .cm-s-wiki-syntax div.CodeMirror-selected { background: #49483E; }
@@ -39,3 +40,5 @@
   text-decoration: underline;
   color: white !important;
 }
+
+

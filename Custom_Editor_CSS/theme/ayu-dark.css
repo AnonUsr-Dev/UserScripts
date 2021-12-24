@@ -1,0 +1,47 @@
+/* Based on CodeMirror Example ayu-dark theme (https://codemirror.net/theme/ayu-dark.css) */
+/* Based on https://github.com/dempfi/ayu */
+
+.cm-s-wiki-syntax.CodeMirror { background: #0a0e14; color: #b3b1ad; }
+.cm-s-wiki-syntax div.CodeMirror-selected { background: #273747; }
+.cm-s-wiki-syntax .CodeMirror-line::selection, .cm-s-wiki-syntax .CodeMirror-line > span::selection, .cm-s-wiki-syntax .CodeMirror-line > span > span::selection { background: rgba(39, 55, 71, 99); }
+.cm-s-wiki-syntax .CodeMirror-line::-moz-selection, .cm-s-wiki-syntax .CodeMirror-line > span::-moz-selection, .cm-s-wiki-syntax .CodeMirror-line > span > span::-moz-selection { background: rgba(39, 55, 71, 99); }
+.cm-s-wiki-syntax .CodeMirror-gutters { background: #0a0e14; border-right: 0px; }
+.cm-s-wiki-syntax .CodeMirror-guttermarker { color: white; }
+.cm-s-wiki-syntax .CodeMirror-guttermarker-subtle { color: #3d424d; }
+.cm-s-wiki-syntax .CodeMirror-linenumber { color: #3d424d; }
+.cm-s-wiki-syntax .CodeMirror-cursor { border-left: 1px solid #e6b450; }
+.cm-s-wiki-syntax.cm-fat-cursor .CodeMirror-cursor { background-color: #a2a8a175 !important; }
+.cm-s-wiki-syntax .cm-animate-fat-cursor { background-color: #a2a8a175 !important; }
+
+.cm-s-wiki-syntax span.cm-comment { color: #626a73; }
+.cm-s-wiki-syntax span.cm-atom { color: #ae81ff; }
+.cm-s-wiki-syntax span.cm-number { color: #e6b450; }
+
+.cm-s-wiki-syntax span.cm-comment.cm-attribute { color: #ffb454; }
+.cm-s-wiki-syntax span.cm-comment.cm-def { color: rgba(57, 186, 230, 80); }
+.cm-s-wiki-syntax span.cm-comment.cm-tag { color: #39bae6; }
+.cm-s-wiki-syntax span.cm-comment.cm-type { color: #5998a6; }
+
+.cm-s-wiki-syntax span.cm-property, .cm-s-wiki-syntax span.cm-attribute { color: #ffb454; }  
+.cm-s-wiki-syntax span.cm-keyword { color: #ff8f40; } 
+.cm-s-wiki-syntax span.cm-builtin { color: #e6b450; }
+.cm-s-wiki-syntax span.cm-string { color: #c2d94c; }
+
+.cm-s-wiki-syntax span.cm-variable { color: #b3b1ad; }
+.cm-s-wiki-syntax span.cm-variable-2 { color: #f07178; }
+.cm-s-wiki-syntax span.cm-variable-3 { color: #39bae6; }
+.cm-s-wiki-syntax span.cm-type { color: #ff8f40; }
+.cm-s-wiki-syntax span.cm-def { color: #ffee99; }
+.cm-s-wiki-syntax span.cm-bracket { color: #f8f8f2; }
+.cm-s-wiki-syntax span.cm-tag { color: rgba(57, 186, 230, 80); }
+.cm-s-wiki-syntax span.cm-header { color: #c2d94c; }
+.cm-s-wiki-syntax span.cm-link { color: #39bae6; }
+.cm-s-wiki-syntax span.cm-error { color: #ff3333; } 
+
+.cm-s-wiki-syntax .CodeMirror-activeline-background { background: #01060e; }
+.cm-s-wiki-syntax .CodeMirror-matchingbracket {
+  text-decoration: underline;
+  color: white !important;
+}
+
+

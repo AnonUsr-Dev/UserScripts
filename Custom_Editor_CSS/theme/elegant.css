@@ -1,0 +1,16 @@
+/* Based on CodeMirror Example elegant theme (https://codemirror.net/theme/elegant.css) */
+.cm-s-wiki-syntax span.cm-number, .cm-s-wiki-syntax span.cm-string, .cm-s-wiki-syntax span.cm-atom { color: #762; }
+.cm-s-wiki-syntax span.cm-comment { color: #262; font-style: italic; line-height: 1em; }
+.cm-s-wiki-syntax span.cm-meta { color: #555; font-style: italic; line-height: 1em; }
+.cm-s-wiki-syntax span.cm-variable { color: black; }
+.cm-s-wiki-syntax span.cm-variable-2 { color: #b11; }
+.cm-s-wiki-syntax span.cm-qualifier { color: #555; }
+.cm-s-wiki-syntax span.cm-keyword { color: #730; }
+.cm-s-wiki-syntax span.cm-builtin { color: #30a; }
+.cm-s-wiki-syntax span.cm-link { color: #762; }
+.cm-s-wiki-syntax span.cm-error { background-color: #fdd; }
+
+.cm-s-wiki-syntax .CodeMirror-activeline-background { background: #e8f2ff; }
+.cm-s-wiki-syntax .CodeMirror-matchingbracket { outline:1px solid grey; color:black !important; }
+
+

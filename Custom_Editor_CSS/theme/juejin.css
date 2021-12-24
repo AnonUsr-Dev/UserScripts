@@ -1,0 +1,33 @@
+/* Based on CodeMirror Example juejin theme (https://codemirror.net/theme/juejin.css) */
+.cm-s-wiki-syntax.CodeMirror {
+  background: #f8f9fa;
+}
+.cm-s-wiki-syntax .cm-header,
+.cm-s-wiki-syntax .cm-def {
+  color: #1ba2f0;
+}
+.cm-s-wiki-syntax .cm-comment {
+  color: #009e9d;
+}
+.cm-s-wiki-syntax .cm-quote,
+.cm-s-wiki-syntax .cm-link,
+.cm-s-wiki-syntax .cm-strong,
+.cm-s-wiki-syntax .cm-attribute {
+  color: #fd7741;
+}
+.cm-s-wiki-syntax .cm-url,
+.cm-s-wiki-syntax .cm-keyword,
+.cm-s-wiki-syntax .cm-builtin {
+  color: #bb51b8;
+}
+.cm-s-wiki-syntax .cm-hr {
+  color: #909090;
+}
+.cm-s-wiki-syntax .cm-tag {
+  color: #107000;
+}
+.cm-s-wiki-syntax .cm-variable-2 {
+  color: #0050a0;
+}
+
+

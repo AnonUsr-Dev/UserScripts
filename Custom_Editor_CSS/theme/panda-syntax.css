@@ -1,0 +1,88 @@
+/* Based on CodeMirror Example panda-syntax theme (https://codemirror.net/theme/panda-syntax.css) */
+/*
+	Name:       Panda Syntax
+	Author:     Siamak Mokhtari (http://github.com/siamak/)
+	CodeMirror template by Siamak Mokhtari (https://github.com/siamak/atom-panda-syntax)
+*/
+.cm-s-wiki-syntax {
+	background: #292A2B;
+	color: #E6E6E6;
+	line-height: 1.5;
+	font-family: 'Operator Mono', 'Source Code Pro', Menlo, Monaco, Consolas, Courier New, monospace;
+}
+.cm-s-wiki-syntax .CodeMirror-cursor { border-color: #ff2c6d; }
+.cm-s-wiki-syntax .CodeMirror-activeline-background {
+	background: rgba(99, 123, 156, 0.1);
+}
+.cm-s-wiki-syntax .CodeMirror-selected {
+	background: #FFF;
+}
+.cm-s-wiki-syntax .cm-comment {
+	font-style: italic;
+	color: #676B79;
+}
+.cm-s-wiki-syntax .cm-operator {
+	color: #f3f3f3;
+}
+.cm-s-wiki-syntax .cm-string {
+	color: #19F9D8;
+}
+.cm-s-wiki-syntax .cm-string-2 {
+    color: #FFB86C;
+}
+
+.cm-s-wiki-syntax .cm-tag {
+	color: #ff2c6d;
+}
+.cm-s-wiki-syntax .cm-meta {
+	color: #b084eb;
+}
+
+.cm-s-wiki-syntax .cm-number {
+	color: #FFB86C;
+}
+.cm-s-wiki-syntax .cm-atom {
+	color: #ff2c6d;
+}
+.cm-s-wiki-syntax .cm-keyword {
+	color: #FF75B5;
+}
+.cm-s-wiki-syntax .cm-variable {
+	color: #ffb86c;
+}
+.cm-s-wiki-syntax .cm-variable-2 {
+	color: #ff9ac1;
+}
+.cm-s-wiki-syntax .cm-variable-3, .cm-s-wiki-syntax .cm-type {
+	color: #ff9ac1;
+}
+
+.cm-s-wiki-syntax .cm-def {
+	color: #e6e6e6;
+}
+.cm-s-wiki-syntax .cm-property {
+	color: #f3f3f3;
+}
+.cm-s-wiki-syntax .cm-unit {
+    color: #ffb86c;
+}
+
+.cm-s-wiki-syntax .cm-attribute {
+    color: #ffb86c;
+}
+
+.cm-s-wiki-syntax .CodeMirror-matchingbracket {
+    border-bottom: 1px dotted #19F9D8;
+    padding-bottom: 2px;
+    color: #e6e6e6;
+}
+.cm-s-wiki-syntax .CodeMirror-gutters {
+    background: #292a2b;
+    border-right-color: rgba(255, 255, 255, 0.1);
+}
+.cm-s-wiki-syntax .CodeMirror-linenumber {
+    color: #e6e6e6;
+    opacity: 0.6;
+}
+
+

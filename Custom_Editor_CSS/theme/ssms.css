@@ -1,0 +1,19 @@
+/* Based on CodeMirror Example ssms theme (https://codemirror.net/theme/ssms.css) */
+.cm-s-wiki-syntax span.cm-keyword { color: blue; }
+.cm-s-wiki-syntax span.cm-comment { color: darkgreen; }
+.cm-s-wiki-syntax span.cm-string { color: red; }
+.cm-s-wiki-syntax span.cm-def { color: black; }
+.cm-s-wiki-syntax span.cm-variable { color: black; }
+.cm-s-wiki-syntax span.cm-variable-2 { color: black; }
+.cm-s-wiki-syntax span.cm-atom { color: darkgray; }
+.cm-s-wiki-syntax .CodeMirror-linenumber { color: teal; }
+.cm-s-wiki-syntax .CodeMirror-activeline-background { background: #ffffff; }
+.cm-s-wiki-syntax span.cm-string-2 { color: #FF00FF; }
+.cm-s-wiki-syntax span.cm-operator, 
+.cm-s-wiki-syntax span.cm-bracket, 
+.cm-s-wiki-syntax span.cm-punctuation { color: darkgray; }
+.cm-s-wiki-syntax .CodeMirror-gutters { border-right: 3px solid #ffee62; background-color: #ffffff; }
+.cm-s-wiki-syntax div.CodeMirror-selected { background: #ADD6FF; }
+
+
+

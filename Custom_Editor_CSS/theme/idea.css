@@ -1,0 +1,45 @@
+/* Based on CodeMirror Example idea theme (https://codemirror.net/theme/idea.css) */
+/**
+    Name:       IDEA default theme
+    From IntelliJ IDEA by JetBrains
+ */
+
+.cm-s-wiki-syntax span.cm-meta { color: #808000; }
+.cm-s-wiki-syntax span.cm-number { color: #0000FF; }
+.cm-s-wiki-syntax span.cm-keyword { line-height: 1em; font-weight: bold; color: #000080; }
+.cm-s-wiki-syntax span.cm-atom { font-weight: bold; color: #000080; }
+.cm-s-wiki-syntax span.cm-def { color: #000000; }
+.cm-s-wiki-syntax span.cm-variable { color: black; }
+.cm-s-wiki-syntax span.cm-variable-2 { color: black; }
+.cm-s-wiki-syntax span.cm-variable-3, .cm-s-wiki-syntax span.cm-type { color: black; }
+.cm-s-wiki-syntax span.cm-property { color: black; }
+.cm-s-wiki-syntax span.cm-operator { color: black; }
+.cm-s-wiki-syntax span.cm-comment { color: #808080; }
+.cm-s-wiki-syntax span.cm-string { color: #008000; }
+.cm-s-wiki-syntax span.cm-string-2 { color: #008000; }
+.cm-s-wiki-syntax span.cm-qualifier { color: #555; }
+.cm-s-wiki-syntax span.cm-error { color: #FF0000; }
+.cm-s-wiki-syntax span.cm-attribute { color: #0000FF; }
+.cm-s-wiki-syntax span.cm-tag { color: #000080; }
+.cm-s-wiki-syntax span.cm-link { color: #0000FF; }
+.cm-s-wiki-syntax .CodeMirror-activeline-background { background: #FFFAE3; }
+
+.cm-s-wiki-syntax span.cm-builtin { color: #30a; }
+.cm-s-wiki-syntax span.cm-bracket { color: #cc7; }
+.cm-s-wiki-syntax  { font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;}
+
+
+.cm-s-wiki-syntax .CodeMirror-matchingbracket { outline:1px solid grey; color:black !important; }
+
+.CodeMirror-hints.idea {
+  font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+  color: #616569;
+  background-color: #ebf3fd !important;
+}
+
+.CodeMirror-hints.idea .CodeMirror-hint-active {
+  background-color: #a2b8c9 !important;
+  color: #5c6065 !important;
+}
+
+

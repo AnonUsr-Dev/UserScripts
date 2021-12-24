@@ -1,0 +1,67 @@
+/* Based on CodeMirror Example ttcn theme (https://codemirror.net/theme/ttcn.css) */
+.cm-s-wiki-syntax .cm-quote { color: #090; }
+.cm-s-wiki-syntax .cm-negative { color: #d44; }
+.cm-s-wiki-syntax .cm-positive { color: #292; }
+.cm-s-wiki-syntax .cm-header, .cm-strong { font-weight: bold; }
+.cm-s-wiki-syntax .cm-em { font-style: italic; }
+.cm-s-wiki-syntax .cm-link { text-decoration: underline; }
+.cm-s-wiki-syntax .cm-strikethrough { text-decoration: line-through; }
+.cm-s-wiki-syntax .cm-header { color: #00f; font-weight: bold; }
+
+.cm-s-wiki-syntax .cm-atom { color: #219; }
+.cm-s-wiki-syntax .cm-attribute { color: #00c; }
+.cm-s-wiki-syntax .cm-bracket { color: #997; }
+.cm-s-wiki-syntax .cm-comment { color: #333333; }
+.cm-s-wiki-syntax .cm-def { color: #00f; }
+.cm-s-wiki-syntax .cm-em { font-style: italic; }
+.cm-s-wiki-syntax .cm-error { color: #f00; }
+.cm-s-wiki-syntax .cm-hr { color: #999; }
+.cm-s-wiki-syntax .cm-invalidchar { color: #f00; }
+.cm-s-wiki-syntax .cm-keyword { font-weight:bold; }
+.cm-s-wiki-syntax .cm-link { color: #00c; text-decoration: underline; }
+.cm-s-wiki-syntax .cm-meta { color: #555; }
+.cm-s-wiki-syntax .cm-negative { color: #d44; }
+.cm-s-wiki-syntax .cm-positive { color: #292; }
+.cm-s-wiki-syntax .cm-qualifier { color: #555; }
+.cm-s-wiki-syntax .cm-strikethrough { text-decoration: line-through; }
+.cm-s-wiki-syntax .cm-string { color: #006400; }
+.cm-s-wiki-syntax .cm-string-2 { color: #f50; }
+.cm-s-wiki-syntax .cm-strong { font-weight: bold; }
+.cm-s-wiki-syntax .cm-tag { color: #170; }
+.cm-s-wiki-syntax .cm-variable { color: #8B2252; }
+.cm-s-wiki-syntax .cm-variable-2 { color: #05a; }
+.cm-s-wiki-syntax .cm-variable-3, .cm-s-wiki-syntax .cm-type { color: #085; }
+
+.cm-s-wiki-syntax .cm-invalidchar { color: #f00; }
+
+/* ASN */
+.cm-s-wiki-syntax .cm-accessTypes,
+.cm-s-wiki-syntax .cm-compareTypes { color: #27408B; }
+.cm-s-wiki-syntax .cm-cmipVerbs { color: #8B2252; }
+.cm-s-wiki-syntax .cm-modifier { color:#D2691E; }
+.cm-s-wiki-syntax .cm-status { color:#8B4545; }
+.cm-s-wiki-syntax .cm-storage { color:#A020F0; }
+.cm-s-wiki-syntax .cm-tags { color:#006400; }
+
+/* CFG */
+.cm-s-wiki-syntax .cm-externalCommands { color: #8B4545; font-weight:bold; }
+.cm-s-wiki-syntax .cm-fileNCtrlMaskOptions,
+.cm-s-wiki-syntax .cm-sectionTitle { color: #2E8B57; font-weight:bold; }
+
+/* TTCN */
+.cm-s-wiki-syntax .cm-booleanConsts,
+.cm-s-wiki-syntax .cm-otherConsts,
+.cm-s-wiki-syntax .cm-verdictConsts { color: #006400; }
+.cm-s-wiki-syntax .cm-configOps,
+.cm-s-wiki-syntax .cm-functionOps,
+.cm-s-wiki-syntax .cm-portOps,
+.cm-s-wiki-syntax .cm-sutOps,
+.cm-s-wiki-syntax .cm-timerOps,
+.cm-s-wiki-syntax .cm-verdictOps { color: #0000FF; }
+.cm-s-wiki-syntax .cm-preprocessor,
+.cm-s-wiki-syntax .cm-templateMatch,
+.cm-s-wiki-syntax .cm-ttcn3Macros { color: #27408B; }
+.cm-s-wiki-syntax .cm-types { color: #A52A2A; font-weight:bold; }
+.cm-s-wiki-syntax .cm-visibilityModifiers { font-weight:bold; }
+
+

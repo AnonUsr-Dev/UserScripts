@@ -1,0 +1,144 @@
+/* Based on CodeMirror Example material-palenight theme (https://codemirror.net/theme/material-palenight.css) */
+/*
+  Name:       material
+  Author:     Mattia Astorino (http://github.com/equinusocio)
+  Website:    https://material-theme.site/
+*/
+
+.cm-s-wiki-syntax.CodeMirror {
+  background-color: #292D3E;
+  color: #A6ACCD;
+}
+
+.cm-s-wiki-syntax .CodeMirror-gutters {
+  background: #292D3E;
+  color: #676E95;
+  border: none;
+}
+
+.cm-s-wiki-syntax .CodeMirror-guttermarker,
+.cm-s-wiki-syntax .CodeMirror-guttermarker-subtle,
+.cm-s-wiki-syntax .CodeMirror-linenumber {
+  color: #676E95;
+}
+
+.cm-s-wiki-syntax .CodeMirror-cursor {
+  border-left: 1px solid #FFCC00;
+}
+.cm-s-wiki-syntax.cm-fat-cursor .CodeMirror-cursor {
+  background-color: #607c8b80 !important;
+}
+.cm-s-wiki-syntax .cm-animate-fat-cursor {
+  background-color: #607c8b80 !important;
+}
+
+.cm-s-wiki-syntax div.CodeMirror-selected {
+  background: rgba(113, 124, 180, 0.2);
+}
+
+.cm-s-wiki-syntax.CodeMirror-focused div.CodeMirror-selected {
+  background: rgba(113, 124, 180, 0.2);
+}
+
+.cm-s-wiki-syntax .CodeMirror-line::selection,
+.cm-s-wiki-syntax .CodeMirror-line>span::selection,
+.cm-s-wiki-syntax .CodeMirror-line>span>span::selection {
+  background: rgba(128, 203, 196, 0.2);
+}
+
+.cm-s-wiki-syntax .CodeMirror-line::-moz-selection,
+.cm-s-wiki-syntax .CodeMirror-line>span::-moz-selection,
+.cm-s-wiki-syntax .CodeMirror-line>span>span::-moz-selection {
+  background: rgba(128, 203, 196, 0.2);
+}
+
+.cm-s-wiki-syntax .CodeMirror-activeline-background {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.cm-s-wiki-syntax .cm-keyword {
+  color: #C792EA;
+}
+
+.cm-s-wiki-syntax .cm-operator {
+  color: #89DDFF;
+}
+
+.cm-s-wiki-syntax .cm-variable-2 {
+  color: #EEFFFF;
+}
+
+.cm-s-wiki-syntax .cm-variable-3,
+.cm-s-wiki-syntax .cm-type {
+  color: #f07178;
+}
+
+.cm-s-wiki-syntax .cm-builtin {
+  color: #FFCB6B;
+}
+
+.cm-s-wiki-syntax .cm-atom {
+  color: #F78C6C;
+}
+
+.cm-s-wiki-syntax .cm-number {
+  color: #FF5370;
+}
+
+.cm-s-wiki-syntax .cm-def {
+  color: #82AAFF;
+}
+
+.cm-s-wiki-syntax .cm-string {
+  color: #C3E88D;
+}
+
+.cm-s-wiki-syntax .cm-string-2 {
+  color: #f07178;
+}
+
+.cm-s-wiki-syntax .cm-comment {
+  color: #676E95;
+}
+
+.cm-s-wiki-syntax .cm-variable {
+  color: #f07178;
+}
+
+.cm-s-wiki-syntax .cm-tag {
+  color: #FF5370;
+}
+
+.cm-s-wiki-syntax .cm-meta {
+  color: #FFCB6B;
+}
+
+.cm-s-wiki-syntax .cm-attribute {
+  color: #C792EA;
+}
+
+.cm-s-wiki-syntax .cm-property {
+  color: #C792EA;
+}
+
+.cm-s-wiki-syntax .cm-qualifier {
+  color: #DECB6B;
+}
+
+.cm-s-wiki-syntax .cm-variable-3,
+.cm-s-wiki-syntax .cm-type {
+  color: #DECB6B;
+}
+
+
+.cm-s-wiki-syntax .cm-error {
+  color: rgba(255, 255, 255, 1.0);
+  background-color: #FF5370;
+}
+
+.cm-s-wiki-syntax .CodeMirror-matchingbracket {
+  text-decoration: underline;
+  color: white !important;
+}
+
+

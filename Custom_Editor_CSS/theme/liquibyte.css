@@ -1,0 +1,98 @@
+/* Based on CodeMirror Example liquibyte theme (https://codemirror.net/theme/liquibyte.css) */
+.cm-s-wiki-syntax.CodeMirror {
+	background-color: #000;
+	color: #fff;
+	line-height: 1.2em;
+	font-size: 1em;
+}
+.cm-s-wiki-syntax .CodeMirror-focused .cm-matchhighlight {
+	text-decoration: underline;
+	text-decoration-color: #0f0;
+	text-decoration-style: wavy;
+}
+.cm-s-wiki-syntax .cm-trailingspace {
+	text-decoration: line-through;
+	text-decoration-color: #f00;
+	text-decoration-style: dotted;
+}
+.cm-s-wiki-syntax .cm-tab {
+	text-decoration: line-through;
+	text-decoration-color: #404040;
+	text-decoration-style: dotted;
+}
+.cm-s-wiki-syntax .CodeMirror-gutters { background-color: #262626; border-right: 1px solid #505050; padding-right: 0.8em; }
+.cm-s-wiki-syntax .CodeMirror-gutter-elt div { font-size: 1.2em; }
+.cm-s-wiki-syntax .CodeMirror-guttermarker {  }
+.cm-s-wiki-syntax .CodeMirror-guttermarker-subtle {  }
+.cm-s-wiki-syntax .CodeMirror-linenumber { color: #606060; padding-left: 0; }
+.cm-s-wiki-syntax .CodeMirror-cursor { border-left: 1px solid #eee; }
+
+.cm-s-wiki-syntax span.cm-comment     { color: #008000; }
+.cm-s-wiki-syntax span.cm-def         { color: #ffaf40; font-weight: bold; }
+.cm-s-wiki-syntax span.cm-keyword     { color: #c080ff; font-weight: bold; }
+.cm-s-wiki-syntax span.cm-builtin     { color: #ffaf40; font-weight: bold; }
+.cm-s-wiki-syntax span.cm-variable    { color: #5967ff; font-weight: bold; }
+.cm-s-wiki-syntax span.cm-string      { color: #ff8000; }
+.cm-s-wiki-syntax span.cm-number      { color: #0f0; font-weight: bold; }
+.cm-s-wiki-syntax span.cm-atom        { color: #bf3030; font-weight: bold; }
+
+.cm-s-wiki-syntax span.cm-variable-2  { color: #007f7f; font-weight: bold; }
+.cm-s-wiki-syntax span.cm-variable-3, .cm-s-wiki-syntax span.cm-type { color: #c080ff; font-weight: bold; }
+.cm-s-wiki-syntax span.cm-property    { color: #999; font-weight: bold; }
+.cm-s-wiki-syntax span.cm-operator    { color: #fff; }
+
+.cm-s-wiki-syntax span.cm-meta        { color: #0f0; }
+.cm-s-wiki-syntax span.cm-qualifier   { color: #fff700; font-weight: bold; }
+.cm-s-wiki-syntax span.cm-bracket     { color: #cc7; }
+.cm-s-wiki-syntax span.cm-tag         { color: #ff0; font-weight: bold; }
+.cm-s-wiki-syntax span.cm-attribute   { color: #c080ff; font-weight: bold; }
+.cm-s-wiki-syntax span.cm-error       { color: #f00; }
+
+.cm-s-wiki-syntax div.CodeMirror-selected { background-color: rgba(255, 0, 0, 0.25); }
+
+.cm-s-wiki-syntax span.cm-compilation { background-color: rgba(255, 255, 255, 0.12); }
+
+.cm-s-wiki-syntax .CodeMirror-activeline-background { background-color: rgba(0, 255, 0, 0.15); }
+
+/* Default styles for common addons */
+.cm-s-wiki-syntax .CodeMirror span.CodeMirror-matchingbracket { color: #0f0; font-weight: bold; }
+.cm-s-wiki-syntax .CodeMirror span.CodeMirror-nonmatchingbracket { color: #f00; font-weight: bold; }
+.CodeMirror-matchingtag { background-color: rgba(150, 255, 0, .3); }
+/* Scrollbars */
+/* Simple */
+.cm-s-wiki-syntax div.CodeMirror-simplescroll-horizontal div:hover, .cm-s-wiki-syntax div.CodeMirror-simplescroll-vertical div:hover {
+	background-color: rgba(80, 80, 80, .7);
+}
+.cm-s-wiki-syntax div.CodeMirror-simplescroll-horizontal div, .cm-s-wiki-syntax div.CodeMirror-simplescroll-vertical div {
+	background-color: rgba(80, 80, 80, .3);
+	border: 1px solid #404040;
+	border-radius: 5px;
+}
+.cm-s-wiki-syntax div.CodeMirror-simplescroll-vertical div {
+	border-top: 1px solid #404040;
+	border-bottom: 1px solid #404040;
+}
+.cm-s-wiki-syntax div.CodeMirror-simplescroll-horizontal div {
+	border-left: 1px solid #404040;
+	border-right: 1px solid #404040;
+}
+.cm-s-wiki-syntax div.CodeMirror-simplescroll-vertical {
+	background-color: #262626;
+}
+.cm-s-wiki-syntax div.CodeMirror-simplescroll-horizontal {
+	background-color: #262626;
+	border-top: 1px solid #404040;
+}
+/* Overlay */
+.cm-s-wiki-syntax div.CodeMirror-overlayscroll-horizontal div, div.CodeMirror-overlayscroll-vertical div {
+	background-color: #404040;
+	border-radius: 5px;
+}
+.cm-s-wiki-syntax div.CodeMirror-overlayscroll-vertical div {
+	border: 1px solid #404040;
+}
+.cm-s-wiki-syntax div.CodeMirror-overlayscroll-horizontal div {
+	border: 1px solid #404040;
+}
+
+
