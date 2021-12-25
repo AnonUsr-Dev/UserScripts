@@ -19,9 +19,14 @@ wikiwiki.jpの編集で使用されているコードハイライトのテーマ
 
 大体[Wrap-style Switcher](https://github.com/AnonUsr-Dev/UserScripts/blob/main/NijiWiki/Wrap-style_Switcher/README.md#%E4%BD%BF%E3%81%84%E6%96%B9)の手順と同じなので分からなかったら参考にしてください
 
-## スタイルの変更  
-配列の添字を変更して保存します。  
-プレビュー: [CodeMirror: Theme Demo](https://codemirror.net/demo/theme.html)  
+## プレビューとスタイルの変更  
+![image](https://user-images.githubusercontent.com/84770944/147382296-848ee3d8-1fc8-4b0c-9b28-ce94ac065dab.png)  
+### プレビュー  
+- `DEBUG`を`true`にして保存することでテーマ切り替えのコンボボックスが表示されます。  
+- または [CodeMirror: Theme Demo](https://codemirror.net/demo/theme.html)  
+### スタイルの変更  
+- `DEFAULD_THEME_NO`の数値を変更して保存します。  
+- コンボボックスの表示名の頭の数値か配列中のコメントアウトの数値を使ってください。  
 
 ## 動作テスト環境
 - Chrome 最新版 (Official Build) (64 ビット)  
@@ -31,7 +36,10 @@ wikiwiki.jpの編集で使用されているコードハイライトのテーマ
 - Tampermonkey v4.13  
 
 ## 更新履歴
+- 2021/12/25 `2` update
+  - DEBUGモードを追加しました。DEBUGモード中のみテーマの切り替えが出来るようになります。
+  - プラグインだけ.cm-pluginで拡張定義してあるみたいなのでダークテーマ用の同系色を適応するようにしました。
+----
 - 2021/12/24 `1` new
   - 初版公開  
   - 自動アップデートに対応しました (要らない場合は`@updateURL`行を削除して保存してください)  
-----
