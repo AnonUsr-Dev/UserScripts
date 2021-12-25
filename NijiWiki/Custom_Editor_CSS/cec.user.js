@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Custom Editor CSS for wikiwiki.jp
 // @namespace    https://github.com/AnonUsr-Dev/UserScripts
-// @version      1
+// @version      2
 // @description  wikiwiki.jpの編集で使用されているコードハイライトのテーマを変更します。
 // @author       AnonUsr-Dev
 // @match        https://wikiwiki.jp/*/?*
@@ -11,10 +11,15 @@
 // ==/UserScript==
 
 void(((d,l,s,t)=>{
+	// デバッグモード(切り替え用コンボボックスの可視状態等): true: 表示: false: 非表示
+	const DEBUG = false;
+    // デフォルトのテーマ番号
+	const DEFAULD_THEME_NO = 37;
+
 	if (!(s=l.pathname.split("/"))) return;
 	if (s.length<2) return;
 	if (s[2]||!l.search) return;
-	t = [
+	const ts = [
 		/*00*/"3024-day.css",
 		/*01*/"3024-night.css",
 		/*02*/"abbott.css",
@@ -80,6 +85,38 @@ void(((d,l,s,t)=>{
 		/*62*/"yeti.css",
 		/*63*/"yonce.css",
 		/*64*/"zenburn.css"
-	][37];
-	d.querySelector("head").innerHTML += `<link rel="stylesheet" href="https://anonusr-dev.github.io/UserScripts/Custom_Editor_CSS/theme/${t}" type="text/css">`;
+	];
+    const log = console.log;
+	const CSS_ROOT = "https://anonusr-dev.github.io/UserScripts/Custom_Editor_CSS/theme/";
+	t = ts[DEFAULD_THEME_NO];
+	d.querySelector("head").innerHTML += `<link rel="stylesheet" id="anonusrdev_customwikisyntax_css" href="${CSS_ROOT+t}" type="text/css">`;
+	d.querySelector("head").innerHTML += `<style id="anonusrdev_customwikisyntax_css_plugin" type="text/css"></style>`;
+	const fUpdatePluginColor = (t) => {
+		const tds = "10001000010000000111000010100000000100011000001000001100010001100".split("");
+		const pc = ["hsl(320deg 100% 75%)", "hsl(320deg 100% 25%)"][parseInt(tds[ts.indexOf(t)])];
+		d.querySelector("#anonusrdev_customwikisyntax_css_plugin").innerHTML = `.cm-s-wiki-syntax span.cm-plugin{color:${pc};}`
+	}
+	fUpdatePluginColor(t);
+	if (DEBUG == false) return;
+	const fLoad = () => {
+		const p = d.querySelector("div#content>div.wiki-editor>div.checked-form>form>div.edit_form>p");
+		if (DEBUG) log("CEC4wiki2: get highlight bar element");
+		if (!p) return;
+		if (DEBUG) log("CEC4wiki2: find highlight bar element");
+		fTimeout();
+		setTimeout(() => {
+			p.innerHTML += ` <select id="anonusrdev_customwikisyntax_debug">${
+				ts.map((x,j)=>{return(`<option value="${x}"${(x==t?" selected":"")}>${("0"+j).slice(-2)+" "+x}</option>`);}).join("\n")
+			}</select>`;
+			d.querySelector("#anonusrdev_customwikisyntax_debug").onchange = function() {
+				d.querySelector("#anonusrdev_customwikisyntax_css").href = CSS_ROOT + this.value;
+				fUpdatePluginColor(this.value);
+			}
+		}, 1500);
+	}
+	const fTimeout = () => {
+		clearInterval(idLoad);
+	}
+	const idLoad = setInterval(fLoad, 100);
+	setTimeout(fTimeout, 5000);
 })(document,location));
