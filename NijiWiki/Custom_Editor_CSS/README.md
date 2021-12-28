@@ -25,7 +25,7 @@ wikiwiki.jpの編集で使用されているコードハイライトのテーマ
 ![image](https://user-images.githubusercontent.com/84770944/147382296-848ee3d8-1fc8-4b0c-9b28-ce94ac065dab.png)  
 ### プレビュー  
 - `DEBUG`を`true`にして保存することでテーマ切り替えのコンボボックスが表示されます  
-  - `DEBUG`のまま使用するのはコンボボックスが邪魔なのであまりおすすめしません
+  - `DEBUG=true`のまま使用するのはコンボボックスが邪魔なのであまりおすすめしません
 - または [CodeMirror: Theme Demo](https://codemirror.net/demo/theme.html)  
 ### スタイルの変更  
 - `DEFAULD_THEME_NO`の数値を変更して保存します  
