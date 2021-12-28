@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Custom Editor CSS for wikiwiki.jp
 // @namespace    https://github.com/AnonUsr-Dev/UserScripts
-// @version      2
+// @version      3
 // @description  wikiwiki.jpの編集で使用されているコードハイライトのテーマを変更します。
 // @author       AnonUsr-Dev
 // @match        https://wikiwiki.jp/*/?*
@@ -92,27 +92,25 @@ void(((d,l,s,t)=>{
 	d.querySelector("head").innerHTML += `<link rel="stylesheet" id="anonusrdev_customwikisyntax_css" href="${CSS_ROOT+t}" type="text/css">`;
 	d.querySelector("head").innerHTML += `<style id="anonusrdev_customwikisyntax_css_plugin" type="text/css"></style>`;
 	const fUpdatePluginColor = (t) => {
-		const tds = "10001000010000000111000010100000000100011000001000001100010001100".split("");
+		const tds = [..."10001000010000000111000010100000000100011000001000001100010001100"];
 		const pc = ["hsl(320deg 100% 75%)", "hsl(320deg 100% 25%)"][parseInt(tds[ts.indexOf(t)])];
 		d.querySelector("#anonusrdev_customwikisyntax_css_plugin").innerHTML = `.cm-s-wiki-syntax span.cm-plugin{color:${pc};}`
 	}
 	fUpdatePluginColor(t);
 	if (DEBUG == false) return;
 	const fLoad = () => {
-		const p = d.querySelector("div#content>div.wiki-editor>div.checked-form>form>div.edit_form>p");
+		const p = d.querySelector("div#title");//d.querySelector("div#content>div.wiki-editor>div.checked-form>form>div.edit_form>p");
 		if (DEBUG) log("CEC4wiki2: get highlight bar element");
 		if (!p) return;
 		if (DEBUG) log("CEC4wiki2: find highlight bar element");
 		fTimeout();
-		setTimeout(() => {
-			p.innerHTML += ` <select id="anonusrdev_customwikisyntax_debug">${
-				ts.map((x,j)=>{return(`<option value="${x}"${(x==t?" selected":"")}>${("0"+j).slice(-2)+" "+x}</option>`);}).join("\n")
-			}</select>`;
-			d.querySelector("#anonusrdev_customwikisyntax_debug").onchange = function() {
-				d.querySelector("#anonusrdev_customwikisyntax_css").href = CSS_ROOT + this.value;
-				fUpdatePluginColor(this.value);
-			}
-		}, 1500);
+		p.outerHTML += `<div class="toolbox toolbox-searchbar"><select id="anonusrdev_customwikisyntax_debug">${
+			ts.map((x,j)=>{return(`<option value="${x}"${(x==t?" selected":"")}>${("0"+j).slice(-2)+" "+x}</option>`);}).join("\n")
+		}</select></div>`;
+		d.querySelector("#anonusrdev_customwikisyntax_debug").onchange = function() {
+			d.querySelector("#anonusrdev_customwikisyntax_css").href = CSS_ROOT + this.value;
+			fUpdatePluginColor(this.value);
+		}
 	}
 	const fTimeout = () => {
 		clearInterval(idLoad);
