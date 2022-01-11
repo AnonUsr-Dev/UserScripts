@@ -23,10 +23,12 @@
 5. Editページで自動実行されます(折返しの切り替えは以下に追加されたボタンから)  
 ![image](https://user-images.githubusercontent.com/84770944/124894586-c2fa0680-e016-11eb-9dae-cb7851e9cd07.png)
 
+## 初期状態
 初期状態を変えたい場合はTampermonkeyのダッシュボードから Wrap-style Switcher for NijiWiki を選び  
-ソースの `DEFAULT_EDITOR` と `DEFAULT_WRAP_STYLE` の値を変えて保存してください  
+ソースのの論理値を変えて保存してください  
 既定値は次の画像のように設定されています  
-![image](https://user-images.githubusercontent.com/84770944/126611020-8dd843e4-3df8-4d9f-bd80-36c22b1ffebb.png)
+  
+![image](https://user-images.githubusercontent.com/84770944/148936378-589d6a5c-6965-49fa-bb31-43ca38005166.png)
 
 ## 動作テスト環境
 - Chrome 最新版 (Official Build) (64 ビット)  
