@@ -1,15 +1,16 @@
 ## はじめに
 編集フォームの折返しが使いにくいと思ったのでスクリプト書きました  
-  
+新エディタが折り返しに対応してからは初期状態の設定やフォーム周りの調整が主な機能です  
+
 **※ 0.2以前のバージョンは現行版と競合する可能性があるのでダッシュボードから手動で削除してください**  
-  
 0.3以降は同一スクリプトとして認識されると思うのでUpdateの確認だけで大丈夫です  
 
 ## 動作
-#### 折り返しなし
-![image](https://user-images.githubusercontent.com/84770944/126604148-9d896ec2-8a93-4528-9142-f2f327eaad4d.png)
-#### 折り返しあり
-![image](https://user-images.githubusercontent.com/84770944/126604164-3888d213-0724-471d-84be-794a8cf88c01.png)
+||折り返しなし|折り返しあり|
+|---|---|---|
+|新|![image](https://user-images.githubusercontent.com/84770944/149642914-df15e368-5f6a-4a7a-9682-62841e239c9c.png)|![image](https://user-images.githubusercontent.com/84770944/149642920-5c1dc57a-8575-42ee-9944-bd2eb1e5cf8f.png)|
+|旧|![image](https://user-images.githubusercontent.com/84770944/149642922-cfb9fbfe-eee2-438c-a6a6-a65a661a0ef6.png)|![image](https://user-images.githubusercontent.com/84770944/149642924-58a6209b-a79d-4510-a6cf-d70ffd2782d0.png)|
+
 
 ## 使い方
 1. ブラウザに合ったUserScriptを実行できる拡張機能を [Tampermonkey](https://www.tampermonkey.net/) 等からインストールする  
@@ -38,6 +39,9 @@
 - Tampermonkey v4.13  
 
 ## 更新履歴
+- 2022/01/16  
+  - ドキュメントの整理 (動作画像の更新 等)  
+  - レイアウトの既定値設定が効かない既知のバグがあります (修正の優先度低)
 - 2022/01/11 `2` update  
   - wikiwikiの仕様変更に対応しました  
   - 諸々の調整 (変数の整理、セレクタの整理 等)  
@@ -75,3 +79,6 @@
   - テスト環境 追加 (FireFox, Microsoft Edge)  
 - 2021/07/06 `0.1` new
   - gistに初版公開  
+## 関連スクリプト
+- [AnonUsr-Dev/UserScripts/NijiWiki](https://github.com/AnonUsr-Dev/UserScripts/tree/main/NijiWiki)
+
