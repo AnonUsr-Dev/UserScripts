@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Wrap-style Switcher for NijiWiki
 // @namespace    https://github.com/AnonUsr-Dev/UserScripts
-// @version      2
+// @version      3
 // @description  編集フォームの折返し切り替えや改行時のスクロールずれを解決します
 // @author       AnonUsr-Dev
 // @match        https://wikiwiki.jp/nijisanji/?*
@@ -26,7 +26,7 @@ void(((w, d) => {
 	const DEFAULT_LAYOUT = false;
 
 	// デバッグ関係
-	const DEBUG = false;
+	const DEBUG = true;
 	const DEBUG_LABEL = "Wrap-style Switcher 2434";
 	const fLog = console.log;
 
@@ -84,10 +84,9 @@ void(((w, d) => {
 	// 初期化関数
 	const fLoad = () => {
 		if (DEBUG) fLog(DEBUG_LABEL + ": get form");
-		//		if (!(ef = d.querySelector("div#content>div.wiki-editor>div.checked-form>form"))) return void 0;
-		if (!(elms.form = d.querySelector("div#content>div.wiki-editor>div.checked-form>form"))) return void 0;
+		if (!(elms.form = d.querySelector("div#content>div.wiki-editor form"))) return void 0;
 		if (DEBUG) fLog(DEBUG_LABEL + ": get textarea[name$='msg']");
-		if (!(elms.taMsg = elms.form.querySelector("div.edit_form>div.editor-main-area>div.editor-widgets-container>textarea[name='msg'], div.edit_form>div.editor-main-area>div.editor-widgets-container>textarea[name='areaedit_msg']"))) return void 0;
+		if (!(elms.taMsg = elms.form.querySelector("textarea[name='msg'],textarea[name='areaedit_msg']"))) return void 0;
 		if (DEBUG) fLog(DEBUG_LABEL + ": get editor-toggle checkbox");
 		if (!(elms.inpChkHL = elms.form.querySelector("div.edit_form>div.wiki-edit-form-header>p>label>input[type=checkbox]"))) return void 0;
 		if (DEBUG) fLog(DEBUG_LABEL + ": switch editor style");
