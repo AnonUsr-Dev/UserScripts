@@ -26,7 +26,7 @@ void(((w, d) => {
 	const DEFAULT_LAYOUT = false;
 
 	// デバッグ関係
-	const DEBUG = true;
+	const DEBUG = false;
 	const DEBUG_LABEL = "Wrap-style Switcher 2434";
 	const fLog = console.log;
 
