@@ -36,7 +36,7 @@
 - Firefox 最新版 (64 ビット)  
 - Microsoft Edge 最新版 (公式ビルド) (64 ビット)  
 - Kinza 最新版 (64 ビット) // 制作環境  
-- Tampermonkey v4.13  
+- Tampermonkey v4.16.1  
 
 ## 更新履歴
 - 2022/08/30 `3` update  
