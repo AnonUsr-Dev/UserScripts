@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Wrap-style Switcher for NijiWiki
 // @namespace    https://github.com/AnonUsr-Dev/UserScripts
-// @version      4
+// @version      5
 // @description  編集フォームの折返し切り替えや改行時のスクロールずれを解決します
 // @author       AnonUsr-Dev
 // @match        https://wikiwiki.jp/nijisanji/?*cmd=edit*
@@ -28,6 +28,16 @@ void(async (w, d) => {
 	// 　false: 従来(below), true: 横並び(right)
 	const DEFAULT_LAYOUT = false;
 
+	// バックグラウンド待機のタイムアウト動作
+	// 　false: 終了, true: 続行
+	const TIMEOUT_BACKGROUND_CONTINUE = false;
+	// バックグラウンド待機のタイムアウト時間(ms)
+	// 　TIMEOUT_BACKGROUND_WAIT<=0: 即時終了または即時続行, false or Infinity: タイムアウト無効
+	const TIMEOUT_BACKGROUND_WAIT = Infinity;
+	// 主要要素獲得のタイムアウト時間(ms) (大体初回で獲得出来るので適当な値でOK)
+	// 　TIMEOUT_ELEMENT_WAIT<0: で初回で獲得できなければ終了, TIMEOUT_ELEMENT_WAIT=0 or Infinity: タイムアウト無効
+	const TIMEOUT_ELEMENT_WAIT = 10_000;
+
 	// デバッグ関係
 	const debug = {
 		status: false,
@@ -49,7 +59,7 @@ void(async (w, d) => {
 				let tryCount = 0;
 				(function await () {
 					const elements = Array.from(tE.querySelectorAll(selector)).filter(filter);
-					debug.console.log(selector, "filter element count:", elements.length);
+					debug.console.log(`[awaitElement]`, "filter element count:", elements.length, `(${selector})`);
 					const element = elements[0];
 					if (element) return resolve(element);
 					if (retryCount && retryCount < tryCount++) return reject(element);
@@ -58,17 +68,25 @@ void(async (w, d) => {
 			});
 		},
 		awaitVisible: function awaitVisible(status, timeout) {
+			const getVisibilityState = () => document.visibilityState;
+			const isVisible = () => getVisibilityState() === "visible";
+			const isInvalidTimerStatus = [false, Infinity].includes(timeout);
 			return new Promise((resolve, reject) => {
-				const interval = 100,
-					retryCount = Math.abs(timeout) / interval;
-				let tryCount = 0;
-				(function await () {
-					const visibilityState = d.visibilityState;
-					const visible = visibilityState === "visible";
-					if (visible === !!status) return resolve(visibilityState);
-					if (retryCount && retryCount < tryCount++) return reject(visibilityState);
-					setTimeout(await, interval);
-				})();
+				const eventListener = (status) => document[`${!!status?"add":"remove"}EventListener`]("visibilitychange", handle);
+				const handle = (e) => {
+					const text = getVisibilityState(), match = isVisible() === status, r = e ? void(0) : match;
+					if (!match) return r;
+					eventListener(false);
+					clearTimeout(timeoutId);
+					resolve(text);
+					return r;
+				}
+				const timer = isInvalidTimerStatus ? (() => {}) : (() => {
+					eventListener(false);
+					reject(getVisibilityState());
+				});
+				const timeoutId = setTimeout(timer, isInvalidTimerStatus ? 0 : timeout);
+				if (handle() === false) eventListener(true);
 			});
 		},
 		getEditorType: () => es.form__cbHighlight.checked,
@@ -120,10 +138,9 @@ void(async (w, d) => {
 				const ul_1 = es.form__cmMenu.querySelector("ul.top-level-menu");
 				const menuCancel = () => {
 					(function await () {
-						if (ul_1.querySelector("ul.second-level-menu")) {
-							ul_1.click();
-							return setTimeout(await, 0);
-						}
+						if (!ul_1.querySelector("ul.second-level-menu")) return;
+						ul_1.click();
+						return setTimeout(await, 0);
 					})();
 				}
 				return new Promise((res, rej) => {
@@ -136,6 +153,7 @@ void(async (w, d) => {
 								li_1.click();
 								return setTimeout(await_1, 0);
 							}
+							debug.console.log("[awaitElement]", "await li(wrap)")
 							fs.awaitElement.call(ul_2, "li", e => e.textContent === "右端で折り返さない", 5000).then(li_2 => {
 								const svg = li_2.querySelector(`svg`);
 								const getStatus = () => fs.getWrapStyle() === status && status == !!svg.style.opacity.length;
@@ -178,31 +196,29 @@ void(async (w, d) => {
 	const es = {};
 
 	debug.console.log("[awaitVisible] await visibilityState...");
-	if ((await fs.awaitVisible(true, 60000).catch(n => n)) === "hidden") {
+	if ((await fs.awaitVisible(true, TIMEOUT_BACKGROUND_WAIT).catch(n => n)) === "hidden" && TIMEOUT_BACKGROUND_CONTINUE === false) {
 		return void debug.console.log("[awaitVisible] visibilityState timeout"); }
 	debug.console.log("[awaitElement] await form...");
-	if ((es.form = await fs.awaitElement.call(d, "#content>div.wiki-editor form", true, 100000).catch(n => null)) === null) {
+	if ((es.form = await fs.awaitElement.call(d, "#content>div.wiki-editor form", true, TIMEOUT_ELEMENT_WAIT).catch(n => null)) === null) {
 		return void debug.console.log("[awaitElement] form timeout"); }
 	debug.console.log("[awaitElement] await msg textarea...");
-	if ((es.form__taMsg = await fs.awaitElement.call(es.form, "textarea[name='msg'],textarea[name='areaedit_msg']", true, 100000).catch(n => null)) === null) {
+	if ((es.form__taMsg = await fs.awaitElement.call(es.form, "textarea[name='msg'],textarea[name='areaedit_msg']", true, TIMEOUT_ELEMENT_WAIT).catch(n => null)) === null) {
 		return void debug.console.log("[awaitElement] msg textarea timeout"); }
 	debug.console.log("[awaitElement] await highlight checkbox...");
-	if ((es.form__cbHighlight = await fs.awaitElement.call(es.form, ".edit_form input[type='checkbox']", e => e.parentElement.textContent.includes(" ver "), 100000).catch(n => null)) === null) {
+	if ((es.form__cbHighlight = await fs.awaitElement.call(es.form, ".edit_form input[type='checkbox']", e => e.parentElement.textContent.includes(" ver "), TIMEOUT_ELEMENT_WAIT).catch(n => null)) === null) {
 		return void debug.console.log("[awaitElement] highlight checkbox timeout"); }
 	debug.console.log("[awaitElement] await layout list...");
-	if ((es.form__ulLayout = await fs.awaitElement.call(es.form, ".edit_form .wiki-editor-layout-changer>ul", true, 100000).catch(n => null)) === null) {
+	if ((es.form__ulLayout = await fs.awaitElement.call(es.form, ".edit_form .wiki-editor-layout-changer>ul", true, TIMEOUT_ELEMENT_WAIT).catch(n => null)) === null) {
 		return void debug.console.log("[awaitElement] layout list timeout"); }
-	debug.console.log("[awaitElement] await notimestamp checkbox...");
-	if ((es.form__cbNoTimestamp = await fs.awaitElement.call(es.form, ".edit_form input[type='checkbox'][name='notimestamp']", true, 100000).catch(n => null)) === null) {
-		return void debug.console.log("[awaitElement] notimestamp checkbox timeout"); }
 
 	debug.console.log("[querySelector] get CodeMirror...");
 	es.form__cm = es.form.querySelector(".edit_form .CodeMirror");
 	debug.console.log(`[querySelector] ${es.form__cm?"enable":"disable"} CodeMirror`);
 
+	es.style = document.documentElement.appendChild(d.createElement("style"));
 	if (HIDDEN_ADMIN_TIMESTAMP) {
 		debug.console.log(`invisiblized admin timestamp`);
-		es.form__cbNoTimestamp.parentElement.style.display = "none";
+		es.style.textContent = ".no-timestamp{display:none!important;}";
 	}
 
 	debug.console.log(`[EditorType] set`);
