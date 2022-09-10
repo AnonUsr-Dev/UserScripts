@@ -39,6 +39,9 @@
 - Tampermonkey v4.16.1  
 
 ## 更新履歴
+- 2022/09/-- `6` future update(now testing)
+  - 脳筋コーディングしてた折り返し方法を最適化  
+  - typoの修正  
 - 2022/09/09 `5` update
   - styleが適応されない時があるので調整  
   - 待機関数まわりの調整  
