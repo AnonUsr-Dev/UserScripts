@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Wrap-style Switcher for NijiWiki
 // @namespace    https://github.com/AnonUsr-Dev/UserScripts
-// @version      5
+// @version      6
 // @description  編集フォームの折返し切り替えや改行時のスクロールずれを解決します
 // @author       AnonUsr-Dev
 // @match        https://wikiwiki.jp/nijisanji/?*cmd=edit*
@@ -30,7 +30,7 @@ void(async (w, d) => {
 
 	// バックグラウンド待機のタイムアウト動作
 	// 　false: 終了, true: 続行
-	const TIMEOUT_BACKGROUND_CONTINUE = false;
+	const TIMEOUT_BACKGROUND_CONTINUE = true;
 	// バックグラウンド待機のタイムアウト時間(ms)
 	// 　TIMEOUT_BACKGROUND_WAIT<=0: 即時終了または即時続行, false or Infinity: タイムアウト無効
 	const TIMEOUT_BACKGROUND_WAIT = Infinity;
@@ -91,9 +91,9 @@ void(async (w, d) => {
 		},
 		getEditorType: () => es.form__cbHighlight.checked,
 		setEditorType: (status) => {
-			return new Promise(r => {
+			return new Promise(resolve => {
 				(function await () {
-					if (fs.getEditorType() === status) return r();
+					if (fs.getEditorType() === status) return resolve();
 					es.form__cbHighlight.click();
 					setTimeout(await, 100);
 				})();
@@ -108,9 +108,9 @@ void(async (w, d) => {
 		setEditorLayout: (status) => {
 			status = [ /*"tab",*/ "right", "below"].includes(status) ? status : "below";
 			const target = es.form__ulLayout.querySelector(`li.${status}`);
-			return new Promise(r => {
+			return new Promise(resolve => {
 				(function await () {
-					if (fs.getEditorLayout() === status && target.classList.contains("active")) return r();
+					if (fs.getEditorLayout() === status && target.classList.contains("active")) return resolve();
 					es.form__ulLayout.querySelector(`li.${status}`).click();
 					setTimeout(await, 500);
 				})();
@@ -120,7 +120,7 @@ void(async (w, d) => {
 			const editorTypeName = fs.getEditorType() ? "CodeMirror" : "textarea";
 			if (editorTypeName === "CodeMirror") {
 				es.form__cm = es.form.querySelector(".edit_form .CodeMirror");
-				return es.form__cm.classList.contains("CodeMirror-wrap");
+				return es.form__cm.CodeMirror.getOption("lineWrapping");
 			} else if (editorTypeName === "textarea") {
 				return es.form__taMsg.getAttribute("wrap") !== "off";
 			} else {
@@ -132,45 +132,11 @@ void(async (w, d) => {
 			const wrapStyle = fs.getWrapStyle();
 			if (editorTypeName === "CodeMirror") {
 				es.form__cm = es.form.querySelector(".edit_form .CodeMirror");
-				es.form__cmMenu = es.form.querySelector(".edit_form .editor-menu");
-				const style = es.form__cmMenu.appendChild(d.createElement("style"))
-				if (!debug.status) style.textContent = `.edit_form .editor-menu ul.second-level-menu{opacity:0;}`;
-				const ul_1 = es.form__cmMenu.querySelector("ul.top-level-menu");
-				const menuCancel = () => {
-					(function await () {
-						if (!ul_1.querySelector("ul.second-level-menu")) return;
-						ul_1.click();
-						return setTimeout(await, 0);
-					})();
-				}
-				return new Promise((res, rej) => {
-					const error = () => { menuCancel(); style.remove(); return rej(null); }
-					const success = () => { menuCancel(); style.remove(); return res(true); }
-					debug.console.log("[awaitElement]", "await li(display)")
-					fs.awaitElement.call(ul_1, "li", e => e.textContent === "表示", 5000).then((li_1, ul_2) => {
-						(function await_1() {
-							if (!(ul_2 = li_1.querySelector("ul.second-level-menu"))) {
-								li_1.click();
-								return setTimeout(await_1, 0);
-							}
-							debug.console.log("[awaitElement]", "await li(wrap)")
-							fs.awaitElement.call(ul_2, "li", e => e.textContent === "右端で折り返さない", 5000).then(li_2 => {
-								const svg = li_2.querySelector(`svg`);
-								const getStatus = () => fs.getWrapStyle() === status && status == !!svg.style.opacity.length;
-								(function await_2() {
-									const currentStatus = getStatus();
-									if (currentStatus) return success();
-									li_2.click();
-									while (currentStatus !== getStatus());
-									setTimeout(await_2, 50);
-								})();
-							}).catch(await_1)
-						})();
-					}).catch(error)
-				})
+				es.form__cm.CodeMirror.setOption("lineWrapping", !!status);
+				return Promise.resolve(true);
 			} else if (editorTypeName === "textarea") {
 				if (wrapStyle !== status) es.form__taMsg.setAttribute("wrap", status ? "soft" : "off");
-				return Promise.resove(true);
+				return Promise.resolve(true);
 			} else {
 				return Promise.reject(null);
 			}
