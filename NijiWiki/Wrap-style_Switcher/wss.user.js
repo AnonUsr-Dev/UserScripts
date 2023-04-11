@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Wrap-style Switcher for NijiWiki
 // @namespace    https://github.com/AnonUsr-Dev/UserScripts
-// @version      6
+// @version      7
 // @description  編集フォームの折返し切り替えや改行時のスクロールずれを解決します
 // @author       AnonUsr-Dev
 // @match        https://wikiwiki.jp/nijisanji/?*cmd=edit*
@@ -13,7 +13,7 @@
 // @downloadURL  https://github.com/AnonUsr-Dev/UserScripts/raw/main/NijiWiki/Wrap-style_Switcher/wss.user.js
 // ==/UserScript==
 
-void(async (w, d) => {
+void(async function __MAIN__(w, d){
 	'use strict';
 	// エディタの既定値
 	// 　false: 旧エディタ, true: 新エディタ
@@ -117,29 +117,50 @@ void(async (w, d) => {
 			})
 		},
 		getWrapStyle: () => {
-			const editorTypeName = fs.getEditorType() ? "CodeMirror" : "textarea";
-			if (editorTypeName === "CodeMirror") {
-				es.form__cm = es.form.querySelector(".edit_form .CodeMirror");
-				return es.form__cm.CodeMirror.getOption("lineWrapping");
-			} else if (editorTypeName === "textarea") {
-				return es.form__taMsg.getAttribute("wrap") !== "off";
-			} else {
-				return null;
-			}
+			return new Promise((resolve, reject)=>{
+				const editorTypeName = fs.getEditorType() ? "CodeMirror" : "textarea";
+				if (editorTypeName === "CodeMirror") {
+					return fs.awaitElement.call(es.form, ".edit_form .CodeMirror", e=>e.CodeMirror).then(form__cm=>{
+						es.form__cm=form__cm
+						return resolve(es.form__cm.CodeMirror.getOption("lineWrapping"));
+					})
+				} else if (editorTypeName === "textarea") {
+					return resolve(es.form__taMsg.getAttribute("wrap") !== "off");
+				} else {
+					return reject(null);
+				}
+			})
 		},
 		setWrapStyle: (status) => {
 			const editorTypeName = fs.getEditorType() ? "CodeMirror" : "textarea";
-			const wrapStyle = fs.getWrapStyle();
-			if (editorTypeName === "CodeMirror") {
-				es.form__cm = es.form.querySelector(".edit_form .CodeMirror");
-				es.form__cm.CodeMirror.setOption("lineWrapping", !!status);
-				return Promise.resolve(true);
-			} else if (editorTypeName === "textarea") {
-				if (wrapStyle !== status) es.form__taMsg.setAttribute("wrap", status ? "soft" : "off");
-				return Promise.resolve(true);
-			} else {
-				return Promise.reject(null);
-			}
+			return fs.getWrapStyle().then(wrapStyle=>{
+				if (editorTypeName === "CodeMirror") {
+					es.form__cm = es.form.querySelector(".edit_form .CodeMirror");
+					es.form__cm.CodeMirror.setOption("lineWrapping", !!status);
+					return true;
+				} else if (editorTypeName === "textarea") {
+					if (wrapStyle !== status) es.form__taMsg.setAttribute("wrap", status ? "soft" : "off");
+					return true;
+				} else {
+					return null;
+				}
+			})
+		},
+		setWrapStyleAll: (status) => {
+			const editorTypeName = fs.getEditorType() ? "CodeMirror" : "textarea";
+			return fs.getWrapStyle().then(wrapStyle=>{
+				if (editorTypeName === "CodeMirror") {
+					for(const form__cm of es.form.querySelectorAll(".edit_form .CodeMirror")){
+						form__cm.CodeMirror.setOption("lineWrapping", !!status);
+					}
+					return true;
+				} else if (editorTypeName === "textarea") {
+					if (wrapStyle !== status) es.form__taMsg.setAttribute("wrap", status ? "soft" : "off");
+					return true;
+				} else {
+					return null;
+				}
+			})
 		},
 		handle: {
 			fixHorizontalScroll: () => {
@@ -149,12 +170,14 @@ void(async (w, d) => {
 			},
 			toggleWrap: () => {
 				es.form__btnToggleWrap.disabled = true;
-				try {
-					fs.setWrapStyle(!fs.getWrapStyle());
-				} finally {
-					es.form__btnToggleWrap.textContent = `折り返し${fs.getWrapStyle()?"ON":"OFF"}`;
-					es.form__btnToggleWrap.disabled = false;
-				}
+				fs.getWrapStyle().then(wrapStyle=>{
+					fs.setWrapStyleAll(!wrapStyle);
+				}).finally(()=>{
+					fs.getWrapStyle().then(wrapStyle=>{
+						es.form__btnToggleWrap.textContent = `折り返し${wrapStyle?"ON":"OFF"}`;
+						es.form__btnToggleWrap.disabled = false;
+					})
+				})
 			}
 		}
 	}
@@ -192,7 +215,7 @@ void(async (w, d) => {
 	debug.console.log(`[EditorLayout] set`);
 	await fs.setEditorLayout(DEFAULT_LAYOUT);
 	debug.console.log(`[WrapStyle] set`);
-	await fs.setWrapStyle(DEFAULT_WRAP_STYLE);
+	await fs.setWrapStyleAll(DEFAULT_WRAP_STYLE);
 
 	// [旧エディタ] 改行時のスクロールずれ修正
 	es.form__taMsg.style.overflowAnchor = "none";
@@ -200,10 +223,18 @@ void(async (w, d) => {
 	// [旧エディタ] スクロールの位置修正をイベントリスナー追加
 	es.form__taMsg.addEventListener("keyup", fs.handle.fixHorizontalScroll);
 
-	// [新・旧エディタ] 折り返しボタン追加
-	es.form__btnToggleWrap = es.form.querySelector("div.preview-buttons").appendChild(d.createElement("button"));
-	es.form__btnToggleWrap.id = "wrap-switcher-button";
-	es.form__btnToggleWrap.type = "button";
-	es.form__btnToggleWrap.textContent = `折り返し${fs.getWrapStyle()?"ON":"OFF"}`;
-	es.form__btnToggleWrap.addEventListener("click", fs.handle.toggleWrap);
+	// [新・旧エディタ] ボタン追加
+	const buttons = [
+		{name:"ToggleWrap",id:"wrap-switcher-button",text:`折り返し${await fs.getWrapStyle()?"ON":"OFF"}`,title:"エディターの折り返しを切り替えます",onclick:fs.handle.toggleWrap}
+	];
+	buttons.forEach(button=>{
+		const fullname = `form__btn${button.name}`;
+		es[fullname] = es.form.querySelector("div.preview-buttons").appendChild(d.createElement("button"));
+		es[fullname].id = button.id;
+		es[fullname].type = "button";
+		es[fullname].textContent = button.text;
+		es[fullname].title = button.title;
+		es[fullname].addEventListener("click",button.onclick);
+	})
 })(window, document);
+
