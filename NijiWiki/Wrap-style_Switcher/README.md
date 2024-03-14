@@ -35,14 +35,16 @@
 - Chrome 最新版 (Official Build) (64 ビット)  
 - Firefox 最新版 (64 ビット)  
 - Microsoft Edge 最新版 (公式ビルド) (64 ビット)  
-- Kinza 最新版 (64 ビット) // 制作環境  
+- Chrome Dev 最新版 (Official Build) (64 ビット) // 制作環境  
 - Tampermonkey v4.18  
   - `v4.18`で読み込みがうまくいかない場合は`v4.18`特有のバグの可能性があるので[回避策](https://github.com/Tampermonkey/tampermonkey/issues/1617#issuecomment-1287637401)を試してみるか`v4.16.1`を使うかTampermonkey側のアップデートを待ってください  
 
 ## 更新履歴
+- 2024/03/15 `8` update
+  - `β版 ver 0.4.0` 仕様変更に対応
+---
 - 2023/04/11 `7` update
   - `β版 ver 0.3.0` 仕様変更に対応 
----
 - 2022/09/10 `6` update
   - 脳筋コーディングしてた折り返し方法を最適化  
   - typoの修正  
