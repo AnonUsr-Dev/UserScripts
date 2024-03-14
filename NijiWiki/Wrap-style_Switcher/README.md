@@ -36,7 +36,7 @@
 - Firefox 最新版 (64 ビット)  
 - Microsoft Edge 最新版 (公式ビルド) (64 ビット)  
 - Chrome Dev 最新版 (Official Build) (64 ビット) // 制作環境  
-- Tampermonkey v4.18  
+- Tampermonkey v5.01  
   - `v4.18`で読み込みがうまくいかない場合は`v4.18`特有のバグの可能性があるので[回避策](https://github.com/Tampermonkey/tampermonkey/issues/1617#issuecomment-1287637401)を試してみるか`v4.16.1`を使うかTampermonkey側のアップデートを待ってください  
 
 ## 更新履歴
