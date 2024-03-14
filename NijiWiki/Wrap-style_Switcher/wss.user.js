@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Wrap-style Switcher for NijiWiki
 // @namespace    https://github.com/AnonUsr-Dev/UserScripts
-// @version      7
+// @version      8
 // @description  編集フォームの折返し切り替えや改行時のスクロールずれを解決します
 // @author       AnonUsr-Dev
 // @match        https://wikiwiki.jp/nijisanji/?*cmd=edit*
@@ -40,10 +40,45 @@ void(async function __MAIN__(w, d){
 
 	// デバッグ関係
 	const debug = {
-		status: false,
+		status: !false,
 		label: "Wrap-style Switcher 2434",
 		console: { log: (...args) => void(debug.status && console.log(`${debug.label}:`, ...args)) }
 	}
+
+	const Visibility = (()=>{
+		const objectTypes = ["object", "function"];
+		const undef = void 0;
+		const isPrimitive = (value) => value == null ? value === null || value === undef : !objectTypes.includes(typeof value);
+		const isBoolean = (value) => typeof value=="boolean";
+		const isTimeValue = (value) => Number.isSafeInteger(value) && 0 <= value && value < 0x7fffffff;
+		const normalizeEventOptions = (value, forceValue={}) => ({...(isPrimitive(value) ? {capture: !!value} : value), ...(isPrimitive(forceValue) ? {} : forceValue)});
+		const Self = {
+			get state(){return document.visibilityState},
+			get isVisible(){return this.state === "visible"},
+			onchange(listener, options){return document.addEventListener("visibilitychange", listener, normalizeEventOptions(options))},
+			onechange(listener, options){return this.onchange("visibilitychange", listener, normalizeEventOptions(options, {once: true}))},
+			offchange(listener, options){return document.removeEventListener("visibilitychange", listener, normalizeEventOptions(options))},
+			wait: function(status, timeout){
+				const hasTimeout = isTimeValue(timeout);
+				return new Promise((resolve, reject) => {
+					const dispose = (result, promiseFn) => {
+						this.offchange(onChange);
+						if (hasTimeout) clearTimeout(timerId);
+						return promiseFn(result);
+					}
+					const onChange = (event) => {
+						const state = this.state, isMatched = this.isVisible === status, result = event ? undef : isMatched;
+						if (!isMatched) return result;
+						dispose(state, resolve);
+						return result;
+					}
+					const timerId = !hasTimeout ? null : setTimeout(()=>dispose(this.state, reject), timeout);
+					if (onChange() === false) this.onchange(onChange);
+				});
+			}
+		}
+		return Self;
+	})();
 
 	const fs = {
 		awaitElement: function awaitElement(selector, filter, timeout) {
@@ -67,28 +102,10 @@ void(async function __MAIN__(w, d){
 				})();
 			});
 		},
-		awaitVisible: function awaitVisible(status, timeout) {
-			const getVisibilityState = () => document.visibilityState;
-			const isVisible = () => getVisibilityState() === "visible";
-			const isInvalidTimerStatus = [false, Infinity].includes(timeout);
-			return new Promise((resolve, reject) => {
-				const eventListener = (status) => document[`${!!status?"add":"remove"}EventListener`]("visibilitychange", handle);
-				const handle = (e) => {
-					const text = getVisibilityState(), match = isVisible() === status, r = e ? void(0) : match;
-					if (!match) return r;
-					eventListener(false);
-					clearTimeout(timeoutId);
-					resolve(text);
-					return r;
-				}
-				const timer = isInvalidTimerStatus ? (() => {}) : (() => {
-					eventListener(false);
-					reject(getVisibilityState());
-				});
-				const timeoutId = setTimeout(timer, isInvalidTimerStatus ? 0 : timeout);
-				if (handle() === false) eventListener(true);
-			});
-		},
+		getTextAreaEditor: ()=>es.form.querySelector("textarea[name='msg'],textarea[name='areaedit_msg']"),
+		getCodeMirrorEditor: ()=>es.form.querySelector(".cm-editor .cm-content"),
+		getCodeMirrorEditorAsync: (filter, timeout)=>fs.awaitElement.call(es.form, ".cm-editor .cm-content", filter, timeout),
+		getCodeMirrorEditors: ()=>es.form.querySelectorAll(".cm-editor .cm-content"),
 		getEditorType: () => es.form__cbHighlight.checked,
 		setEditorType: (status) => {
 			return new Promise(resolve => {
@@ -120,11 +137,12 @@ void(async function __MAIN__(w, d){
 			return new Promise((resolve, reject)=>{
 				const editorTypeName = fs.getEditorType() ? "CodeMirror" : "textarea";
 				if (editorTypeName === "CodeMirror") {
-					return fs.awaitElement.call(es.form, ".edit_form .CodeMirror", e=>e.CodeMirror).then(form__cm=>{
-						es.form__cm=form__cm
-						return resolve(es.form__cm.CodeMirror.getOption("lineWrapping"));
-					})
+					return fs.getCodeMirrorEditorAsync(e=>e.cmView).then(form__cm=>{
+						es.form__cm = form__cm;
+						return resolve(es.form__cm.classList.contains("cm-lineWrapping"));
+					});
 				} else if (editorTypeName === "textarea") {
+					es.form__taMsg = fs.getTextAreaEditor();
 					return resolve(es.form__taMsg.getAttribute("wrap") !== "off");
 				} else {
 					return reject(null);
@@ -135,10 +153,11 @@ void(async function __MAIN__(w, d){
 			const editorTypeName = fs.getEditorType() ? "CodeMirror" : "textarea";
 			return fs.getWrapStyle().then(wrapStyle=>{
 				if (editorTypeName === "CodeMirror") {
-					es.form__cm = es.form.querySelector(".edit_form .CodeMirror");
-					es.form__cm.CodeMirror.setOption("lineWrapping", !!status);
+					es.form__cm = es.form.querySelector(".cm-editor .cm-content");
+					es.form__cm.classList[status ? "add" : "remove"]("cm-lineWrapping");
 					return true;
 				} else if (editorTypeName === "textarea") {
+					es.form__taMsg = fs.getTextAreaEditor();
 					if (wrapStyle !== status) es.form__taMsg.setAttribute("wrap", status ? "soft" : "off");
 					return true;
 				} else {
@@ -150,11 +169,12 @@ void(async function __MAIN__(w, d){
 			const editorTypeName = fs.getEditorType() ? "CodeMirror" : "textarea";
 			return fs.getWrapStyle().then(wrapStyle=>{
 				if (editorTypeName === "CodeMirror") {
-					for(const form__cm of es.form.querySelectorAll(".edit_form .CodeMirror")){
-						form__cm.CodeMirror.setOption("lineWrapping", !!status);
+					for(const form__cm of fs.getCodeMirrorEditors()){
+						es.form__cm.classList[status ? "add" : "remove"]("cm-lineWrapping");
 					}
 					return true;
 				} else if (editorTypeName === "textarea") {
+					es.form__taMsg = fs.getTextAreaEditor();
 					if (wrapStyle !== status) es.form__taMsg.setAttribute("wrap", status ? "soft" : "off");
 					return true;
 				} else {
@@ -164,7 +184,7 @@ void(async function __MAIN__(w, d){
 		},
 		handle: {
 			fixHorizontalScroll: () => {
-				const taMsg = es.form__taMsg;
+				const taMsg = es.form__taMsg = fs.getTextAreaEditor();
 				if (taMsg.getAttribute("wrap") !== "off") return;
 				if (taMsg.value.substr(0, taMsg.selectionStart).slice(-1) === "\n") taMsg.scrollLeft = 0;
 			},
@@ -183,16 +203,12 @@ void(async function __MAIN__(w, d){
 	}
 
 	const es = {};
-
-	debug.console.log("[awaitVisible] await visibilityState...");
-	if ((await fs.awaitVisible(true, TIMEOUT_BACKGROUND_WAIT).catch(n => n)) === "hidden" && TIMEOUT_BACKGROUND_CONTINUE === false) {
-		return void debug.console.log("[awaitVisible] visibilityState timeout"); }
+	debug.console.log("[Visibility.wait] await visibilityState...");
+	if ((await Visibility.wait(true, TIMEOUT_BACKGROUND_WAIT).catch(n => n)) === "hidden" && TIMEOUT_BACKGROUND_CONTINUE === false) {
+		return void debug.console.log("[Visibility.wait] visibilityState timeout"); }
 	debug.console.log("[awaitElement] await form...");
 	if ((es.form = await fs.awaitElement.call(d, "#content>div.wiki-editor form", true, TIMEOUT_ELEMENT_WAIT).catch(n => null)) === null) {
 		return void debug.console.log("[awaitElement] form timeout"); }
-	debug.console.log("[awaitElement] await msg textarea...");
-	if ((es.form__taMsg = await fs.awaitElement.call(es.form, "textarea[name='msg'],textarea[name='areaedit_msg']", true, TIMEOUT_ELEMENT_WAIT).catch(n => null)) === null) {
-		return void debug.console.log("[awaitElement] msg textarea timeout"); }
 	debug.console.log("[awaitElement] await highlight checkbox...");
 	if ((es.form__cbHighlight = await fs.awaitElement.call(es.form, ".edit_form input[type='checkbox']", e => e.parentElement.textContent.includes(" ver "), TIMEOUT_ELEMENT_WAIT).catch(n => null)) === null) {
 		return void debug.console.log("[awaitElement] highlight checkbox timeout"); }
@@ -201,7 +217,7 @@ void(async function __MAIN__(w, d){
 		return void debug.console.log("[awaitElement] layout list timeout"); }
 
 	debug.console.log("[querySelector] get CodeMirror...");
-	es.form__cm = es.form.querySelector(".edit_form .CodeMirror");
+	es.form__cm = fs.getCodeMirrorEditor();
 	debug.console.log(`[querySelector] ${es.form__cm?"enable":"disable"} CodeMirror`);
 
 	es.style = document.documentElement.appendChild(d.createElement("style"));
@@ -217,11 +233,20 @@ void(async function __MAIN__(w, d){
 	debug.console.log(`[WrapStyle] set`);
 	await fs.setWrapStyleAll(DEFAULT_WRAP_STYLE);
 
-	// [旧エディタ] 改行時のスクロールずれ修正
-	es.form__taMsg.style.overflowAnchor = "none";
+	document.addEventListener("click", async({target})=>{
+		if(!target?.matches(".diff-view-toggle>button"))return;
+		await fs.setWrapStyleAll(DEFAULT_WRAP_STYLE);
+	})
 
-	// [旧エディタ] スクロールの位置修正をイベントリスナー追加
-	es.form__taMsg.addEventListener("keyup", fs.handle.fixHorizontalScroll);
+	es.form__cbHighlight.addEventListener("input", ()=>{
+		if (fs.getEditorType()) return;
+		es.form__taMsg = fs.getTextAreaEditor();
+
+		// [旧エディタ] 改行時のスクロールずれ修正
+		es.form__taMsg.style.overflowAnchor = "none";
+		// [旧エディタ] スクロール位置修正のリスナーを追加
+		es.form__taMsg.addEventListener("keyup", fs.handle.fixHorizontalScroll);
+	})
 
 	// [新・旧エディタ] ボタン追加
 	const buttons = [
@@ -237,4 +262,3 @@ void(async function __MAIN__(w, d){
 		es[fullname].addEventListener("click",button.onclick);
 	})
 })(window, document);
-
