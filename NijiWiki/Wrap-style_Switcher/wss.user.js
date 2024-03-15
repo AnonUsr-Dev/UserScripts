@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Wrap-style Switcher for NijiWiki
 // @namespace    https://github.com/AnonUsr-Dev/UserScripts
-// @version      8
+// @version      8.1
 // @description  編集フォームの折返し切り替えや改行時のスクロールずれを解決します
 // @author       AnonUsr-Dev
 // @match        https://wikiwiki.jp/nijisanji/?*cmd=edit*
@@ -40,7 +40,7 @@ void(async function __MAIN__(w, d){
 
 	// デバッグ関係
 	const debug = {
-		status: !false,
+		status: false,
 		label: "Wrap-style Switcher 2434",
 		console: { log: (...args) => void(debug.status && console.log(`${debug.label}:`, ...args)) }
 	}
