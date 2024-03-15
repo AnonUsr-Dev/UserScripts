@@ -40,6 +40,8 @@
   - `v4.18`で読み込みがうまくいかない場合は`v4.18`特有のバグの可能性があるので[回避策](https://github.com/Tampermonkey/tampermonkey/issues/1617#issuecomment-1287637401)を試してみるか`v4.16.1`を使うかTampermonkey側のアップデートを待ってください  
 
 ## 更新履歴
+- 2024/03/15 `8.1` update
+  - 小さな修正  
 - 2024/03/15 `8` update
   - `β版 ver 0.4.0` 仕様変更に対応
 ---
