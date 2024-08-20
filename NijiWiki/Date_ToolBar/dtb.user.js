@@ -1,15 +1,19 @@
 // ==UserScript==
 // @name         Date ToolBar for NijiWiki
 // @namespace    https://github.com/AnonUsr-Dev/UserScripts
-// @version      1
+// @version      2
 // @description  配信予定の日付移動を補助するツールバーを追加します
 // @author       AnonUsr-Dev
 // @match        https://wikiwiki.jp/nijisanji/%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A%E3%83%AA%E3%82%B9%E3%83%88
 // @match        https://wikiwiki.jp/nijisanji/%E6%B5%B7%E5%A4%96%E3%83%A9%E3%82%A4%E3%83%90%E3%83%BC%E7%B7%8F%E5%90%88/%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A%E3%83%AA%E3%82%B9%E3%83%88
 // @match        https://wikiwiki.jp/nijisanji/?*cmd=edit*page=%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A%2F*
+// @match        https://wikiwiki.jp/nijisanji/?*cmd=edit*page=%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A/*
 // @match        https://wikiwiki.jp/nijisanji/?*cmd=edit*page=%E6%B5%B7%E5%A4%96%E3%83%A9%E3%82%A4%E3%83%90%E3%83%BC%E7%B7%8F%E5%90%88%2F%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A%2F*
+// @match        https://wikiwiki.jp/nijisanji/?*cmd=edit*page=%E6%B5%B7%E5%A4%96%E3%83%A9%E3%82%A4%E3%83%90%E3%83%BC%E7%B7%8F%E5%90%88/%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A/*
 // @match        https://wikiwiki.jp/nijisanji/?*page=%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A%2F*cmd=edit*
+// @match        https://wikiwiki.jp/nijisanji/?*page=%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A/*cmd=edit*
 // @match        https://wikiwiki.jp/nijisanji/?*page=%E6%B5%B7%E5%A4%96%E3%83%A9%E3%82%A4%E3%83%90%E3%83%BC%E7%B7%8F%E5%90%88%2F%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A%2F*cmd=edit*
+// @match        https://wikiwiki.jp/nijisanji/?*page=%E6%B5%B7%E5%A4%96%E3%83%A9%E3%82%A4%E3%83%90%E3%83%BC%E7%B7%8F%E5%90%88/%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A/*cmd=edit*
 // @match        https://wikiwiki.jp/nijisanji/%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A/*
 // @match        https://wikiwiki.jp/nijisanji/%E6%B5%B7%E5%A4%96%E3%83%A9%E3%82%A4%E3%83%90%E3%83%BC%E7%B7%8F%E5%90%88/%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A/*
 // @icon         data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAwIDI0IDI0IiB3aWR0aD0iMjRweCIgZmlsbD0iI0ZGRkZGRiI+PHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0yMCAzaC0xVjFoLTJ2Mkg3VjFINXYySDRjLTEuMSAwLTIgLjktMiAydjE2YzAgMS4xLjkgMiAyIDJoMTZjMS4xIDAgMi0uOSAyLTJWNWMwLTEuMS0uOS0yLTItMnptMCAxOEg0VjhoMTZ2MTN6Ii8+PC9zdmc+
@@ -145,8 +149,8 @@ void(((d) => {
 		/*==== 要素を待機 ====*/
 		/**/ debug.log("waiting '#title' element");
 		if (!d.querySelector("#title")) return;
-		/**/ debug.log("waiting '#ctime' element");
-		if (!d.querySelector("#ctime")) return;
+		/**/ debug.log("waiting '#pageload' element");
+		if (!d.querySelector("#pageload")) return;
 		/**/ debug.log("found waited elements");
 		/*==== Intervalを解除 ====*/
 		fs.timeout();
@@ -157,7 +161,8 @@ void(((d) => {
 			es.a.backToParent.innerText = fs.link.create.label("list", null, 0, vs.page.isWorld);
 			es.a.backToParent.href = fs.link.create.get("list", null, 0, vs.page.isWorld);
 			es.a.backToParent.draggable = false;
-			d.querySelector("#ctime").before(es.a.backToParent);
+			const parent = d.querySelector("#pageload").parentElement;
+			parent.insertBefore(es.a.backToParent, parent.firstChild);
 			es.a.backToParent.outerHTML = "<label>親ページ: </label>" + es.a.backToParent.outerHTML;
 		}
 		/*==== 日付ツールバー を追加 ====*/
