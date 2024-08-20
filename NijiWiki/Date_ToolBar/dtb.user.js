@@ -39,7 +39,7 @@ void(((d) => {
 	}
 	/*#### debug ####*/
 	const debug = {};
-	debug.status = true;
+	debug.status = false;
 	debug.label = "Date ToolBar";
 	debug.timestamp = {};
 	debug.timestamp.format = {"timeZone": "JST", "hour12": false, "hour": "2-digit", "minute": "2-digit", "second": "2-digit"};
