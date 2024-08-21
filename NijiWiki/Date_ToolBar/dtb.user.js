@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Date ToolBar for NijiWiki
 // @namespace    https://github.com/AnonUsr-Dev/UserScripts
-// @version      2
+// @version      3
 // @description  配信予定の日付移動を補助するツールバーを追加します
 // @author       AnonUsr-Dev
 // @match        https://wikiwiki.jp/nijisanji/%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A%E3%83%AA%E3%82%B9%E3%83%88
@@ -149,8 +149,8 @@ void(((d) => {
 		/*==== 要素を待機 ====*/
 		/**/ debug.log("waiting '#title' element");
 		if (!d.querySelector("#title")) return;
-		/**/ debug.log("waiting '#pageload' element");
-		if (!d.querySelector("#pageload")) return;
+		/**/ debug.log("waiting '#system-icon-container' element");
+		if (!d.querySelector("#system-icon-container")) return;
 		/**/ debug.log("found waited elements");
 		/*==== Intervalを解除 ====*/
 		fs.timeout();
@@ -161,7 +161,7 @@ void(((d) => {
 			es.a.backToParent.innerText = fs.link.create.label("list", null, 0, vs.page.isWorld);
 			es.a.backToParent.href = fs.link.create.get("list", null, 0, vs.page.isWorld);
 			es.a.backToParent.draggable = false;
-			const parent = d.querySelector("#pageload").parentElement;
+			const parent = d.querySelector("#system-icon-container");
 			parent.insertBefore(es.a.backToParent, parent.firstChild);
 			es.a.backToParent.outerHTML = "<label>親ページ: </label>" + es.a.backToParent.outerHTML;
 		}
