@@ -1,13 +1,17 @@
 // ==UserScript==
 // @name         Wrap-style Switcher for NijiWiki
 // @namespace    https://github.com/AnonUsr-Dev/UserScripts
-// @version      8.1
+// @version      9
 // @description  編集フォームの折返し切り替えや改行時のスクロールずれを解決します
 // @author       AnonUsr-Dev
 // @match        https://wikiwiki.jp/nijisanji/?*cmd=edit*
 // @match        https://wikiwiki.jp/nijisanji/?*cmd=revert*
 // @match        https://wikiwiki.jp/nijisanji/?*cmd=add*
 // @match        https://wikiwiki.jp/nijisanji/?*cmd=areaedit*
+// @match        https://wikiwiki.jp/nijisanji/::cmd/edit?*
+// @match        https://wikiwiki.jp/nijisanji/::cmd/revert?*
+// @match        https://wikiwiki.jp/nijisanji/::cmd/add?*
+// @match        https://wikiwiki.jp/nijisanji/::cmd/areaedit?*
 // @icon         data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAwIDI0IDI0IiB3aWR0aD0iMjRweCIgZmlsbD0iI0ZGRkZGRiI+PHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik00IDE5aDZ2LTJINHYyek0yMCA1SDR2MmgxNlY1em0tMyA2SDR2MmgxMy4yNWMxLjEgMCAyIC45IDIgMnMtLjkgMi0yIDJIMTV2LTJsLTMgMyAzIDN2LTJoMmMyLjIxIDAgNC0xLjc5IDQtNHMtMS43OS00LTQtNHoiLz48L3N2Zz4=
 // @updateURL    https://github.com/AnonUsr-Dev/UserScripts/raw/main/NijiWiki/Wrap-style_Switcher/wss.user.js
 // @downloadURL  https://github.com/AnonUsr-Dev/UserScripts/raw/main/NijiWiki/Wrap-style_Switcher/wss.user.js
