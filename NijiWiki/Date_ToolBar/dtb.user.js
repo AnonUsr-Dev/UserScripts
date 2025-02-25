@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Date ToolBar for NijiWiki
 // @namespace    https://github.com/AnonUsr-Dev/UserScripts
-// @version      3
+// @version      4
 // @description  配信予定の日付移動を補助するツールバーを追加します
 // @author       AnonUsr-Dev
 // @match        https://wikiwiki.jp/nijisanji/%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A%E3%83%AA%E3%82%B9%E3%83%88
@@ -16,6 +16,14 @@
 // @match        https://wikiwiki.jp/nijisanji/?*page=%E6%B5%B7%E5%A4%96%E3%83%A9%E3%82%A4%E3%83%90%E3%83%BC%E7%B7%8F%E5%90%88/%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A/*cmd=edit*
 // @match        https://wikiwiki.jp/nijisanji/%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A/*
 // @match        https://wikiwiki.jp/nijisanji/%E6%B5%B7%E5%A4%96%E3%83%A9%E3%82%A4%E3%83%90%E3%83%BC%E7%B7%8F%E5%90%88/%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A/*
+// @match        https://wikiwiki.jp/nijisanji/::cmd/edit?page=%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A%2F*
+// @match        https://wikiwiki.jp/nijisanji/::cmd/edit?page=%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A/*
+// @match        https://wikiwiki.jp/nijisanji/::cmd/edit?page=%E6%B5%B7%E5%A4%96%E3%83%A9%E3%82%A4%E3%83%90%E3%83%BC%E7%B7%8F%E5%90%88%2F%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A%2F*
+// @match        https://wikiwiki.jp/nijisanji/::cmd/edit?page=%E6%B5%B7%E5%A4%96%E3%83%A9%E3%82%A4%E3%83%90%E3%83%BC%E7%B7%8F%E5%90%88/%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A/*
+// @match        https://wikiwiki.jp/nijisanji/::cmd/edit?*&page=%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A%2F*
+// @match        https://wikiwiki.jp/nijisanji/::cmd/edit?*&page=%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A/*
+// @match        https://wikiwiki.jp/nijisanji/::cmd/edit?*&page=%E6%B5%B7%E5%A4%96%E3%83%A9%E3%82%A4%E3%83%90%E3%83%BC%E7%B7%8F%E5%90%88%2F%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A%2F*
+// @match        https://wikiwiki.jp/nijisanji/::cmd/edit?*&page=%E6%B5%B7%E5%A4%96%E3%83%A9%E3%82%A4%E3%83%90%E3%83%BC%E7%B7%8F%E5%90%88/%E9%85%8D%E4%BF%A1%E4%BA%88%E5%AE%9A/*
 // @icon         data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAwIDI0IDI0IiB3aWR0aD0iMjRweCIgZmlsbD0iI0ZGRkZGRiI+PHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0yMCAzaC0xVjFoLTJ2Mkg3VjFINXYySDRjLTEuMSAwLTIgLjktMiAydjE2YzAgMS4xLjkgMiAyIDJoMTZjMS4xIDAgMi0uOSAyLTJWNWMwLTEuMS0uOS0yLTItMnptMCAxOEg0VjhoMTZ2MTN6Ii8+PC9zdmc+
 // @updateURL    https://github.com/AnonUsr-Dev/UserScripts/raw/main/NijiWiki/Date_ToolBar/dtb.user.js
 // @downloadURL  https://github.com/AnonUsr-Dev/UserScripts/raw/main/NijiWiki/Date_ToolBar/dtb.user.js
@@ -30,6 +38,10 @@
 //   ?*page=海外ライバー総合/配信予定/*cmd=edit*
 //   配信予定/*
 //   海外ライバー総合/配信予定/*
+//   ::cmd/edit?page=配信予定/*
+//   ::cmd/edit?page=海外ライバー総合/配信予定/*
+//   ::cmd/edit?*&page=配信予定/*
+//   ::cmd/edit?*&page=海外ライバー総合/配信予定/*
 
 void(((d) => {
 	"use strict";
@@ -61,8 +73,9 @@ void(((d) => {
 		result.dateString = fs.link.date.toString(result.date);
 		result.isWorld = parts.match("海外ライバー総合") ? true : false;
 		if (href.indexOf("?") !== -1) {
-			const usp = new URLSearchParams(new URL(href).search);
-			if (usp.has("cmd") && usp.get("cmd") === "edit") result.pageType = "edit";
+			const url = new URL(href);
+			const usp = url.searchParams;
+			if (url.pathname.split("/")[2] === "::cmd" && url.pathname.split("/")[3] === "edit") result.pageType = "edit";
 			if (usp.has("page")) result.page = usp.get("page");
 			if (usp.has("audqds")) result.audqds = usp.get("audqds");
 			if (usp.has("audqdv")) result.audqdv = usp.get("audqdv");
@@ -81,9 +94,8 @@ void(((d) => {
 				date = date === null ? new Date() : new Date(date);
 				date.setDate(date.getDate() + dayOffset);
 				return fs.link.create.addQuery({
-					"href": fs.link.wiki
+					"href": fs.link.wiki + "::cmd/edit"
 				}, {
-					"cmd": "edit",
 					"page": fs.link.addWorld(world, `配信予定/${fs.link.date.toString(date)}`)
 				});
 				break;
@@ -102,7 +114,7 @@ void(((d) => {
 		// audqds: step, audqdv: view
 		if (parseInt(vs.curStep) !== 1) xQuery.audqds = parseInt(vs.curStep);
 		if (es.inChk.isView.disabled && es.inChk.isView.checked === true) xQuery.audqdv = 1;
-		["cmd", "page", "refpage", "audqds", "audqdv"].forEach(x => {
+		["page", "refpage", "audqds", "audqdv"].forEach(x => {
 			if (xQuery[x]) url.usp.set(x, xQuery[x]);
 		})
 		return url.u.origin + url.u.pathname + (url.usp.toString().length ? "?" : "") + url.usp.toString();
@@ -168,8 +180,8 @@ void(((d) => {
 		/*==== 日付ツールバー を追加 ====*/
 		/**/ debug.log("add 'div.datebar' element");
 		es.div.datebar = d.createElement("div");
-		d.querySelector("div.result-message, #title").before(es.div.datebar);
-		d.querySelector("div.result-message, #title").before(d.createElement("hr"));
+		d.querySelector("div.result-message, #title").insertAdjacentElement("beforeBegin", es.div.datebar);
+		d.querySelector("div.result-message, #title").insertAdjacentElement("beforeBegin", d.createElement("hr"));
 		es.div.datebar.id = "AnonUsr-Dev-DateBar";
 		es.div.datebar.style = "text-align: right;"//justify-content: center; align-items: center;
 		/*==== 日付ツールバーの要素 を追加 ====*/
